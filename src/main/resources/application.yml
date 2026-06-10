@@ -1,0 +1,15 @@
+spring:
+  web:
+    resources:
+      static-locations:
+        - classpath:/static/
+        - classpath:/style/
+        - classpath:/animation/
+      add-mappings: true
+
+server:
+  port: 8080
+
+logging:
+  level:
+    org.springframework.web: INFO

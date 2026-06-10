@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>РЖД Помощник | AI ассистент монтёра пути</title>
+    <link rel="stylesheet" href="/style/style.css">
+</head>
+<body>
+
+<div class="container" id="app">
+    <!-- Форма входа/регистрации -->
+    <div id="auth-container">
+        <div class="header">
+            <div class="logo">
+                <span class="logo-icon">🚂</span>
+                <span class="logo-text">РЖД ПОМОЩНИК</span>
+            </div>
+            <div class="subtitle">AI ассистент монтёра пути</div>
+        </div>
+        <div class="content">
+            <div id="auth-form">
+                <div class="form-group">
+                    <label>📋 Табельный номер</label>
+                    <input type="text" id="tabnum" placeholder="Пример: РЖД-123456">
+                </div>
+                <div class="form-group">
+                    <label>👤 ФИО</label>
+                    <input type="text" id="fullname" placeholder="Иванов Иван Иванович">
+                </div>
+                <div class="form-group">
+                    <label>🏭 Станция / Депо</label>
+                    <input type="text" id="station" placeholder="Сортировочная">
+                </div>
+                <div class="form-group">
+                    <label>⚙️ Должность</label>
+                    <select id="position">
+                        <option value="Монтёр пути 3 разряда">Монтёр пути 3 разряда</option>
+                        <option value="Электромеханик СЦБ">Электромеханик СЦБ</option>
+                        <option value="Составитель поездов">Составитель поездов</option>
+                        <option value="Осмотрщик вагонов">Осмотрщик вагонов</option>
+                    </select>
+                </div>
+                <button class="btn btn-primary" onclick="registerAndEnter()">🔐 Войти / Регистрация</button>
+            </div>
+            <div id="auth-message" class="message"></div>
+        </div>
+    </div>
+
+    <!-- Чат (скрыт до регистрации) -->
+    <div id="chat-container" class="chat-container">
+        <div class="chat-header">
+            <h2>🤖 AI помощник монтёра пути</h2>
+            <p id="user-info"></p>
+            <button class="logout-btn" onclick="logout()">🚪 Выйти</button>
+        </div>
+        <div class="question-area">
+            <textarea id="question" rows="3" placeholder="Напишите вопрос... Например: Что делать при красном сигнале?"></textarea>
+            <div class="button-group">
+                <button class="btn btn-primary" onclick="askQuestion()">📤 Спросить</button>
+                <button class="btn btn-secondary" onclick="startVoice()">🎤 Голос</button>
+            </div>
+        </div>
+        <div class="answer-area">
+            <div class="answer-label">📢 Ответ AI</div>
+            <div class="answer-content" id="answer">Здесь появится ответ...</div>
+        </div>
+    </div>
+</div>
+
+<script src="/animation/app.js"></script>
+</body>
+</html>
