@@ -9,11 +9,15 @@
 Локальный голосовой AI-помощник для монтёра пути и технического персонала РЖД.  
 Работает **полностью без интернета**, использует локальную модель `llama3.2:3b` через Ollama.
 
-**Ключевые возможности:**
-- 🎤 Голосовой ввод вопросов (браузерный Web Speech API)
-- 🔐 Локальная регистрация/вход (хранится в браузере)
-- 💬 Чат с AI на русском языке
-- 📱 Адаптивный интерфейс (работает на планшетах и телефонах)
+### Ключевые возможности
+
+| Возможность | Описание |
+|-------------|----------|
+| 🎤 **Голосовой ввод** | Web Speech API, работает в Chrome/Edge/Safari |
+| 🔐 **Локальная регистрация** | Данные хранятся в браузере (localStorage) |
+| 💬 **Чат с AI** | На русском языке, ответы за 1-2 секунды |
+| 📱 **Адаптивный интерфейс** | Работает на ПК, планшетах и телефонах |
+| 🔒 **Офлайн-режим** | После первого запуска интернет не нужен |
 
 ---
 
@@ -30,77 +34,91 @@
 
 ---
 
-## 📁 Структура проекта (для разработчиков)
-
+## 📁 Структура проекта
 Voice-assistant/
 │
-├── 📄 pom.xml # Maven зависимости (Spring Boot, Web)
-├── 📄 docker-compose.yml # Запуск Ollama + авто-загрузка модели
-├── 📄 application.yml # Настройки Spring Boot и статики
+├── 📄 pom.xml # Maven зависимости
+├── 📄 docker-compose.yml # Запуск Ollama + загрузка модели
+├── 📄 application.yml # Настройки Spring Boot
 │
 ├── 🧩 src/main/java/ru/superchack/
-│ ├── ApplicationRunner.java # Точка входа Spring Boot
-│ ├── controller/ # REST контроллеры (AI API)
-│ ├── service/ # Бизнес-логика (пока пусто)
+│ ├── ApplicationRunner.java # Точка входа
+│ ├── controller/ # REST API (/api/ask, /api/ping)
+│ ├── service/ # Бизнес-логика
 │ ├── dto/ # Data Transfer Objects
-│ ├── config/ # Конфигурации (RestTemplate и т.д.)
-│ └── exception/ # Глобальный обработчик ошибок
+│ ├── config/ # Конфигурации
+│ └── exception/ # Обработка ошибок
 │
 └── 🎨 src/main/resources/
-├── static/index.html # Главная страница (вход + чат)
-├── style/style.css # Стили (цвета РЖД, адаптив)
-├── animation/app.js # JS логика (голос, отправка, регистрация)
-└── application.yml # Настройки Spring Boot
+├── static/index.html # Главная страница
+├── style/style.css # Стили (РЖД цвета)
+├── animation/app.js # JS логика
+└── application.yml # Настройки
+
+text
 
 ---
 
-## 👥 Роли в проекте (для команды)
+## 👥 Роли в команде
 
 | Роль | Обязанности | Основные файлы |
 |------|-------------|----------------|
-| **Backend-разработчик** | Java + Spring Boot, REST API, интеграция с Ollama | `ApplicationRunner.java`, `controller/*`, `service/*`, `pom.xml` |
-| **Frontend-разработчик** | HTML, CSS, JS, голосовой ввод, адаптив | `index.html`, `style.css`, `app.js` |
-| **DevOps (опционально)** | Docker, docker-compose, развёртывание | `docker-compose.yml`, `application.yml` |
+| **Backend** | Java, Spring Boot, REST API, Ollama | `controller/`, `service/`, `pom.xml` |
+| **Frontend** | HTML, CSS, JS, голос, адаптив | `index.html`, `style.css`, `app.js` |
+| **DevOps** | Docker, docker-compose, деплой | `docker-compose.yml`, `application.yml` |
 
 ---
 
-## 🚀 Быстрый старт (для нового разработчика)
+## 🚀 Быстрый старт
 
-### Требования
-- Java 17 (Eclipse Temurin или Amazon Corretto)
-- Docker Desktop (с поддержкой Linux-контейнеров)
-- Maven (можно через IDEA или отдельно)
+### 1. Установите зависимости
 
-### Команды для запуска
+| Требование | Проверка | Скачать |
+|------------|----------|---------|
+| Java 17 | `java -version` | [Eclipse Temurin](https://adoptium.net/) |
+| Docker Desktop | `docker --version` | [Docker](https://www.docker.com/products/docker-desktop/) |
+| Maven | `mvn --version` | Встроен в IDEA |
+
+### 2. Клонируйте и запустите
 
 ```bash
-# 1. Клонировать проект
 git clone https://github.com/xxGonzalesxx/Voice-assistant.git
 cd Voice-assistant
 
-# 2. Запустить Ollama + автоматическую загрузку модели (2 GB)
+# Запустить Ollama (автоматически скачает модель 2 GB)
 docker-compose up -d
 
-# 3. Запустить Spring Boot
+# Запустить Spring Boot
 mvn spring-boot:run
-
-# 4. Открыть в браузере
+3. Откройте в браузере
+text
 http://localhost:8080
-
-
-Остановка
+4. Остановка
 bash
-# Остановить Ollama
-docker-compose down
-
-# Остановить Spring Boot (Ctrl+C в терминале)
-🔧 API эндпоинты (для бэкендера)
-Метод	URL	Тело запроса	Ответ	Описание
+docker-compose down          # Остановить Ollama
+Ctrl+C                       # Остановить Spring Boot
+🔧 API эндпоинты
+Метод	URL	Тело	Ответ	Описание
 POST	/api/ask	"текст вопроса"	"текст ответа"	Отправить вопрос AI
 GET	/api/ping	—	"OK"	Проверка состояния
-🎨 Фронтендеру: структура страницы
-Файл	Роль	Важные моменты
-index.html	Разметка (HTML)	Контейнеры: #auth-container, #chat-container, #answer
-style.css	Стили (РЖД красный + синий градиент)	Адаптив под телефон, анимация загрузки
+🎨 Фронтендеру
+Файл	Роль	Важные ID/классы
+index.html	Разметка	#auth-container, #chat-container, #answer
+style.css	Стили	Цвета РЖД: #d32f2f, градиент #0a2b3e → #1a4a6f
 app.js	Логика	askQuestion(), startVoice(), registerAndEnter()
-Голосовой ввод — использует webkitSpeechRecognition, работает в Chrome/Edge/Safar
+Голос: использует webkitSpeechRecognition (Chrome/Edge/Safari)
+
+⚠️ Частые проблемы и решения
+Проблема	Решение
+Модель не скачалась	docker logs rzd-ollama — проверить логи
+Порт 8080 занят	Сменить порт в application.yml
+CSS не подгружается	Проверить путь: /style/style.css
+Ollama не отвечает	docker-compose restart
+📞 Контакты
+Автор: @xxGonzalesxx
+
+Репозиторий: github.com/xxGonzalesxx/Voice-assistant
+
+📄 Лицензия
+Проект разработан в рамках учебно-исследовательской работы.
+Для промышленного использования в РЖД требуется сертификация.
