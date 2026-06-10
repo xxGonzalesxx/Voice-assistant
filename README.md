@@ -35,23 +35,23 @@
 ---
 
 ## 📁 Структура проекта
-Файл/Папка	Назначение
 
-pom.xml	Maven зависимости (Spring Boot, Web)
-docker-compose.yml	Запуск Ollama + авто-загрузка модели
-application.yml	Настройки Spring Boot (порт, статика)
-src/main/java/ru/superchack/ApplicationRunner.java	Точка входа Spring Boot
-controller/	REST API (/api/ask, /api/ping)
-service/	Бизнес-логика (пока пусто)
-dto/	Data Transfer Objects
-config/	Конфигурации (RestTemplate и т.д.)
-exception/	Глобальный обработчик ошибок
-src/main/resources/static/index.html	Главная страница (вход + чат)
-style/style.css	Стили (корпоративные цвета РЖД)
-animation/app.js	JS логика (голос, регистрация)
-application.yml	Настройки Spring Boot
+| Файл/Папка | Назначение |
+|------------|------------|
+| `pom.xml` | Maven зависимости (Spring Boot, Web) |
+| `docker-compose.yml` | Запуск Ollama + авто-загрузка модели |
+| `application.yml` | Настройки Spring Boot (порт, статика) |
+| `src/main/java/ru/superchack/ApplicationRunner.java` | Точка входа Spring Boot |
+| `controller/` | REST API (`/api/ask`, `/api/ping`) |
+| `service/` | Бизнес-логика (пока пусто) |
+| `dto/` | Data Transfer Objects |
+| `config/` | Конфигурации (RestTemplate и т.д.) |
+| `exception/` | Глобальный обработчик ошибок |
+| `src/main/resources/static/index.html` | Главная страница (вход + чат) |
+| `style/style.css` | Стили (корпоративные цвета РЖД) |
+| `animation/app.js` | JS логика (голос, регистрация) |
 
-
+---
 
 ## 👥 Роли в команде
 
