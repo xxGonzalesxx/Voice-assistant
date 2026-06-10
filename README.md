@@ -50,6 +50,11 @@ src/main/resources/static/index.html	Главная страница (вход +
 style/style.css	Стили (корпоративные цвета РЖД)
 animation/app.js	JS логика (голос, регистрация)
 application.yml	Настройки Spring Boot
+
+
+
+
+
 ---
 
 ## 👥 Роли в команде
