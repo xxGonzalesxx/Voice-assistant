@@ -1,12 +1,14 @@
 package ru.superchack;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+@Slf4j
 @SpringBootApplication
 public class ApplicationRunner {
     public static void main(String[] args) {
         SpringApplication.run(ApplicationRunner.class,args);
-        System.out.println("Главная страница: http://localhost:8080/");
+        System.out.println("http://localhost:8080/");
     }
 }

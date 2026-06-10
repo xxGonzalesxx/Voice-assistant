@@ -1,15 +1,16 @@
-spring:
-  web:
-    resources:
-      static-locations:
-        - classpath:/static/
-        - classpath:/style/
-        - classpath:/animation/
-      add-mappings: true
-
 server:
   port: 8080
 
 logging:
   level:
-    org.springframework.web: INFO
+    ru.superchack: DEBUG
+
+ollama:
+  url: http://localhost:11434
+  model: llama3.2:3b
+  system-prompt: >
+    Ты вежливый ИИ-ассистент РЖД (Российские железные дороги).
+    Отвечай кратко и по делу на русском языке.
+    Помогай с расписанием поездов, покупкой билетов, статусом поездов,
+    возвратом билетов, программой РЖД Бонус и другими вопросами, связанными с железной дорогой.
+    Если вопрос не связан с РЖД, вежливо перенаправь пользователя.
