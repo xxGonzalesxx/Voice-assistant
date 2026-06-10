@@ -1,0 +1,111 @@
+name: CI
+
+on:
+  push:
+    branches: [ main, feature/frontend-ui ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+
+  # ── Фронтенд ──────────────────────────────────────────
+  frontend:
+    name: Frontend checks
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Проверка структуры файлов
+        run: |
+          test -f src/main/resources/static/index.html     || (echo "❌ index.html не найден"  && exit 1)
+          test -f src/main/resources/static/css/style.css  || (echo "❌ style.css не найден"   && exit 1)
+          test -f src/main/resources/static/js/app.js      || (echo "❌ app.js не найден"      && exit 1)
+          test -f src/main/resources/static/js/chat.js     || (echo "❌ chat.js не найден"     && exit 1)
+          test -f src/main/resources/static/js/voice.js    || (echo "❌ voice.js не найден"    && exit 1)
+          echo "✅ Все файлы на месте"
+
+      - name: Синтаксис JS
+        run: |
+          node --check src/main/resources/static/js/app.js   && echo "✅ app.js"
+          node --check src/main/resources/static/js/chat.js  && echo "✅ chat.js"
+          node --check src/main/resources/static/js/voice.js && echo "✅ voice.js"
+
+      - name: Проверка подключения ресурсов в index.html
+        run: |
+          grep -q 'chat.js'   src/main/resources/static/index.html || (echo "❌ chat.js не подключён"   && exit 1)
+          grep -q 'voice.js'  src/main/resources/static/index.html || (echo "❌ voice.js не подключён"  && exit 1)
+          grep -q 'app.js'    src/main/resources/static/index.html || (echo "❌ app.js не подключён"    && exit 1)
+          grep -q 'style.css' src/main/resources/static/index.html || (echo "❌ style.css не подключён" && exit 1)
+          echo "✅ Все ресурсы подключены"
+
+      - name: Проверка meta viewport
+        run: |
+          grep -q 'viewport' src/main/resources/static/index.html \
+            && echo "✅ viewport есть" \
+            || (echo "❌ viewport отсутствует" && exit 1)
+
+      - name: Проверка кодировки UTF-8
+        run: |
+          file src/main/resources/static/index.html | grep -q 'UTF-8\|ASCII' \
+            && echo "✅ UTF-8" \
+            || (echo "❌ Неверная кодировка" && exit 1)
+
+      - name: Проверка что API ключ не утёк во фронт
+        run: |
+          grep -r 'api.anthropic.com' src/main/resources/static/ \
+            && (echo "❌ Anthropic API url найден во фронте!" && exit 1) \
+            || echo "✅ API url не найден во фронте"
+          grep -r 'sk-ant-' src/main/resources/static/ \
+            && (echo "❌ API ключ найден во фронте!" && exit 1) \
+            || echo "✅ API ключ не найден во фронте"
+
+      - name: Проверка console.log
+        run: |
+          grep -r 'console.log' src/main/resources/static/js/ \
+            && (echo "❌ console.log найден в продакшн коде" && exit 1) \
+            || echo "✅ console.log не найден"
+
+      - name: Проверка закомментированного кода
+        run: |
+          grep -rE '^\s*//' src/main/resources/static/js/ \
+            && echo "⚠️  Найден закомментированный код (предупреждение)" \
+            || echo "✅ Закомментированного кода нет"
+
+  # ── Бэкенд ────────────────────────────────────────────
+  backend:
+    name: Backend checks
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Установка Java 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: maven
+
+      - name: Проверка структуры пакетов
+        run: |
+          test -d src/main/java/ru/superchack/config     || (echo "❌ config не найден"     && exit 1)
+          test -d src/main/java/ru/superchack/controller || (echo "❌ controller не найден" && exit 1)
+          test -d src/main/java/ru/superchack/service    || (echo "❌ service не найден"    && exit 1)
+          test -d src/main/java/ru/superchack/dto        || (echo "❌ dto не найден"        && exit 1)
+          test -d src/main/java/ru/superchack/exception  || (echo "❌ exception не найден"  && exit 1)
+          echo "✅ Все пакеты на месте"
+
+      - name: Проверка application.yml
+        run: |
+          test -f src/main/resources/application.yml \
+            || (echo "❌ application.yml не найден" && exit 1)
+          grep -q 'ollama' src/main/resources/application.yml \
+            || (echo "❌ ollama не настроен в application.yml" && exit 1)
+          echo "✅ application.yml в порядке"
+
+      - name: Сборка проекта
+        run: mvn clean package -DskipTests
+
+      - name: Запуск тестов
+        run: mvn test
