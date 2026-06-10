@@ -37,27 +37,33 @@
 ## 📁 Структура проекта
 Voice-assistant/
 │
-├── 📄 pom.xml # Maven зависимости
-├── 📄 docker-compose.yml # Запуск Ollama + загрузка модели
-├── 📄 application.yml # Настройки Spring Boot
-
-
-├── 🧩 src/main/java/ru/superchack/
-│ ├── ApplicationRunner.java # Точка входа
-│ ├── controller/ # REST API (/api/ask, /api/ping)
-│ ├── service/ # Бизнес-логика
-│ ├── dto/ # Data Transfer Objects
-│ ├── config/ # Конфигурации
-│ └── exception/ # Обработка ошибок
-
-
-└── 🎨 src/main/resources/
-├── static/index.html # Главная страница
-├── style/style.css # Стили (РЖД цвета)
-├── animation/app.js # JS логика
-└── application.yml # Настройки
-
-
+├── pom.xml
+├── docker-compose.yml
+├── README.md
+├── .gitignore
+│
+├── src/
+│   └── main/
+│       ├── java/
+│       │   └── ru/superchack/
+│       │       ├── ApplicationRunner.java
+│       │       ├── controller/
+│       │       ├── service/
+│       │       ├── dto/
+│       │       ├── config/
+│       │       └── exception/
+│       │
+│       └── resources/
+│           ├── application.yml
+│           ├── static/
+│           │   └── index.html
+│           ├── style/
+│           │   └── style.css
+│           └── animation/
+│               └── app.js
+│
+└── .mvn/
+    └── wrapper/
 ---
 
 ## 👥 Роли в команде
