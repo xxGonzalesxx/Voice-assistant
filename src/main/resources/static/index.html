@@ -5,87 +5,151 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>РЖД Помощник</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
-    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
 <div class="rzd-widget">
-
-    <!-- Шапка -->
-    <div class="rzd-header">
-        <div class="rzd-logo">Р</div>
-        <div class="rzd-header-text">
-            <h1>РЖД Помощник</h1>
-            <p>Виртуальный ассистент</p>
+    <!-- Верхняя панель: Шапка и Навигация -->
+    <header class="rzd-header">
+        <div class="rzd-header-main">
+            <div class="rzd-logo" id="homeLogoBtn">Р</div>
+            <div class="rzd-header-text">
+                <h1>РЖД Помощник</h1>
+                <p>Виртуальный ассистент</p>
+            </div>
+            <div class="rzd-status">
+                <div class="status-dot"></div>
+                <span>Онлайн</span>
+            </div>
         </div>
-        <div class="rzd-status">
-            <div class="status-dot"></div>
-            Онлайн
-        </div>
-    </div>
+        
+        <!-- Навигационное меню (SOLID: разделение ответственности страниц) -->
+        <nav class="rzd-nav">
+            <button class="nav-btn active" id="navHome" aria-label="Главная страница">
+                <i class="ti ti-home" aria-hidden="true"></i> <span>Главная</span>
+            </button>
+            <button class="nav-btn" id="navNews" aria-label="Новости и полезная информация">
+                <i class="ti ti-news" aria-hidden="true"></i> <span>Полезно знать</span>
+            </button>
+            <button class="nav-btn" id="navTerms" aria-label="Пользовательское соглашение оферта">
+                <i class="ti ti-file-text" aria-hidden="true"></i> <span>Оферта</span>
+            </button>
+            <button class="btn-auth" id="authBtn">
+                <i class="ti ti-user-check" aria-hidden="true"></i> <span>Войти</span>
+            </button>
+        </nav>
+    </header>
 
-    <!-- Тело -->
-    <div class="rzd-body">
+    <!-- Основной контент-контейнер -->
+    <main class="rzd-body">
+        
+        <!-- СЕКЦИЯ 1: ГЛАВНАЯ (ЧАТ-АССИСТЕНТ) -->
+        <section id="pageHome" class="tab-content active">
+            <!-- Быстрые подсказки -->
+            <div class="rzd-chips">
+                <button class="chip" onclick="quickMsg('Расписание поездов')">
+                    <i class="ti ti-calendar" aria-hidden="true"></i> Расписание
+                </button>
+                <button class="chip" onclick="quickMsg('Купить билет')">
+                    <i class="ti ti-ticket" aria-hidden="true"></i> Билеты
+                </button>
+                <button class="chip" onclick="quickMsg('Статус моего поезда')">
+                    <i class="ti ti-map-pin" aria-hidden="true"></i> Статус поезда
+                </button>
+                <button class="chip" onclick="quickMsg('Возврат билета')">
+                    <i class="ti ti-refresh" aria-hidden="true"></i> Возврат
+                </button>
+                <button class="chip" onclick="quickMsg('Программа лояльности РЖД Бонус')">
+                    <i class="ti ti-star" aria-hidden="true"></i> РЖД Бонус
+                </button>
+            </div>
 
-        <!-- Быстрые подсказки -->
-        <div class="rzd-chips">
-            <button class="chip" onclick="quickMsg('Расписание поездов')">
-                <i class="ti ti-calendar" aria-hidden="true"></i> Расписание
-            </button>
-            <button class="chip" onclick="quickMsg('Купить билет')">
-                <i class="ti ti-ticket" aria-hidden="true"></i> Билеты
-            </button>
-            <button class="chip" onclick="quickMsg('Статус моего поезда')">
-                <i class="ti ti-map-pin" aria-hidden="true"></i> Статус поезда
-            </button>
-            <button class="chip" onclick="quickMsg('Возврат билета')">
-                <i class="ti ti-refresh" aria-hidden="true"></i> Возврат
-            </button>
-            <button class="chip" onclick="quickMsg('Программа лояльности РЖД Бонус')">
-                <i class="ti ti-star" aria-hidden="true"></i> РЖД Бонус
-            </button>
-        </div>
-
-        <!-- Чат -->
-        <div class="chat-area" id="chat">
-            <div class="msg bot">
-                <div class="msg-avatar">
-                    <i class="ti ti-train" aria-hidden="true"></i>
-                </div>
-                <div>
-                    <div class="msg-bubble">
-                        Добрый день! Я ИИ-ассистент РЖД. Помогу с расписанием, билетами, статусом поезда и другими вопросами. Чем могу помочь?
+            <!-- Чат -->
+            <div class="chat-area" id="chat">
+                <div class="msg bot">
+                    <div class="msg-avatar">
+                        <i class="ti ti-train" aria-hidden="true"></i>
                     </div>
-                    <div class="msg-time">Сейчас</div>
+                    <div>
+                        <div class="msg-bubble">
+                            Добрый день! Я ИИ-ассистент РЖД. Помогу с расписанием, билетами, статусом поезда и другими вопросами. Чем могу помочь?
+                        </div>
+                        <div class="msg-time">Сейчас</div>
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <!-- Поле ввода -->
-        <div class="input-row">
-            <button class="btn-voice" id="voiceBtn" onclick="toggleVoice()" aria-label="Голосовой ввод">
-                <i class="ti ti-microphone" aria-hidden="true"></i>
-            </button>
-            <div class="input-wrap">
-        <textarea
-                id="question"
-                placeholder="Введите ваш вопрос..."
-                rows="1"
-                onkeydown="handleKey(event)"
-                oninput="autoResize(this)"
-        ></textarea>
+            <!-- Поле ввода -->
+            <div class="input-row">
+                <button class="btn-voice" id="voiceBtn" onclick="toggleVoice()" aria-label="Голосовой ввод">
+                    <i class="ti ti-microphone" aria-hidden="true"></i>
+                </button>
+                <div class="input-wrap">
+                    <textarea
+                            id="question"
+                            placeholder="Введите ваш вопрос..."
+                            rows="1"
+                            onkeydown="handleKey(event)"
+                            oninput="autoResize(this)"
+                    ></textarea>
+                </div>
+                <button class="btn-send" id="sendBtn" onclick="ask()" aria-label="Отправить">
+                    <i class="ti ti-send" aria-hidden="true"></i>
+                </button>
             </div>
-            <button class="btn-send" id="sendBtn" onclick="ask()" aria-label="Отправить">
-                <i class="ti ti-send" aria-hidden="true"></i>
-            </button>
-        </div>
+        </section>
 
+        <!-- СЕКЦИЯ 2: ПОЛЕЗНАЯ ИНФОРМАЦИЯ И НОВОСТИ -->
+        <section id="pageNews" class="tab-content">
+            <h2 class="section-title">Новости и полезная информация</h2>
+            <div class="news-grid">
+                <article class="news-card">
+                    <div class="news-badge">Важно</div>
+                    <h3>Обновление расписания поездов «Сапсан»</h3>
+                    <p>С изменениями на текущий месяц можно ознакомиться в модуле планирования маршрутов или через чат-ассистента.</p>
+                </article>
+                <article class="news-card">
+                    <div class="news-badge loyalty">РЖД Бонус</div>
+                    <h3>Удвоение баллов за поездки на юг</h3>
+                    <p>Путешествуйте в направлении курортов Северного Кавказа и Черноморского побережья с повышенным кэшбеком.</p>
+                </article>
+            </div>
+        </section>
+
+        <!-- СЕКЦИЯ 3: ОФЕРТА -->
+        <section id="pageTerms" class="tab-content">
+            <h2 class="section-title">Согласие с офертой</h2>
+            <div class="terms-container">
+                <p>Настоящим Пользовательским соглашением регулируются отношения между пассажиром и цифровым сервисом «РЖД Помощник».</p>
+                <p>Использование текстового или голосового ввода в чат-сервисе означает безоговорочное согласие пользователя с обработкой его персональных данных в рамках Федерального закона № 152-ФЗ.</p>
+            </div>
+        </section>
+
+    </main>
+</div>
+
+<!-- Модальное окно авторизации (Регистрация/Вход) -->
+<div class="modal-overlay" id="authModal">
+    <div class="modal-card">
+        <button class="modal-close" id="modalCloseBtn">&times;</button>
+        <h2 id="modalTitle">Личный кабинет</h2>
+        <form class="auth-form" onsubmit="event.preventDefault();">
+            <div class="form-group">
+                <label for="authEmail">Email или Телефон</label>
+                <input type="text" id="authEmail" placeholder="example@rzd.ru">
+            </div>
+            <div class="form-group">
+                <label for="authPassword">Пароль</label>
+                <input type="password" id="authPassword" placeholder="••••••••">
+            </div>
+            <button type="submit" class="btn-submit-auth">Войти</button>
+        </form>
     </div>
 </div>
 
-<!-- порядок важен: chat и voice до app -->
-<script src="/js/chat.js"></script>
-<script src="/js/voice.js"></script>
-<script src="/js/app.js"></script>
+<script src="js/chat.js"></script>
+<script src="js/voice.js"></script>
+<script src="js/app.js"></script>
 </body>
 </html>
