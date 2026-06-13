@@ -1,91 +1,375 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>РЖД Помощник</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
-    <link rel="stylesheet" href="/css/style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>РЖД Помощник</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+  <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
-<div class="rzd-widget">
+<!-- ══════════════════════════════════════════════
+     СТРАНИЦА 1: ГЛАВНАЯ (id="page-home")
+     ══════════════════════════════════════════════ -->
+<div id="page-home">
 
-    <!-- Шапка -->
+  <!-- Navbar -->
+  <header class="navbar" id="navbar">
+    <div class="navbar-inner">
+      <a href="#" class="nav-logo" onclick="showPage('home')" aria-label="На главную">
+        <span class="nav-logo-box">Р</span>
+        <span class="nav-logo-text">РЖД <strong>Помощник</strong></span>
+      </a>
+      <nav class="nav-links" id="navLinks" aria-label="Основная навигация">
+        <a href="#" class="nav-link active" onclick="showPage('home');return false;">Главная</a>
+        <a href="#news"   class="nav-link">Новости</a>
+        <a href="#about"  class="nav-link">О сервисе</a>
+        <a href="#"       class="nav-link" onclick="openOffer(event)">Оферта</a>
+      </nav>
+      <div class="nav-actions">
+        <button class="btn btn-ghost" onclick="showPage('chat')">
+          <i class="ti ti-message-circle" aria-hidden="true"></i>
+          <span>Ассистент</span>
+        </button>
+        <button class="btn btn-outline" onclick="openModal('login')">Вход</button>
+        <button class="btn btn-primary" onclick="openModal('register')">Регистрация</button>
+        <button class="nav-burger" id="burger" onclick="toggleMenu()" aria-label="Меню" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero" aria-labelledby="heroTitle">
+    <div class="track-wrap" aria-hidden="true">
+      <div class="track-rail top"></div>
+      <div class="track-rail bottom"></div>
+      <div class="track-train"><i class="ti ti-train"></i></div>
+      <div class="track-sleepers">
+        <span></span><span></span><span></span><span></span><span></span>
+        <span></span><span></span><span></span><span></span><span></span>
+      </div>
+    </div>
+    <div class="hero-content">
+      <p class="hero-eyebrow">Виртуальный ассистент РЖД</p>
+      <h1 class="hero-title" id="heroTitle">Умный помощник<br>для ваших поездок</h1>
+      <p class="hero-sub">Расписание, билеты, статус поезда и программа лояльности — всё в одном чате. Доступно 24&thinsp;/&thinsp;7.</p>
+      <div class="hero-cta">
+        <button class="btn btn-primary btn-lg btn-animated" onclick="showPage('chat')">
+          <i class="ti ti-message-circle" aria-hidden="true"></i>
+          Открыть ассистента
+        </button>
+        <button class="btn btn-outline btn-lg" onclick="openModal('register')">
+          <i class="ti ti-user-plus" aria-hidden="true"></i>
+          Зарегистрироваться
+        </button>
+      </div>
+      <div class="hero-stats" aria-label="Статистика сервиса">
+        <div class="hero-stat"><strong>24/7</strong><span>Доступность</span></div>
+        <div class="hero-stat-sep" aria-hidden="true"></div>
+        <div class="hero-stat"><strong>5 сек</strong><span>Среднее время ответа</span></div>
+        <div class="hero-stat-sep" aria-hidden="true"></div>
+        <div class="hero-stat"><strong>100+</strong><span>Популярных маршрутов</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features -->
+  <section class="features section" id="about" aria-labelledby="featuresTitle">
+    <div class="container">
+      <h2 class="section-title" id="featuresTitle">Что умеет ассистент</h2>
+      <p class="section-sub">Задайте вопрос голосом или текстом — ответ придёт мгновенно</p>
+      <div class="features-grid">
+        <div class="feature-card" style="--i:0">
+          <div class="feature-icon"><i class="ti ti-calendar-event" aria-hidden="true"></i></div>
+          <h3>Расписание</h3>
+          <p>Актуальное расписание поездов по всей России с учётом задержек и изменений.</p>
+        </div>
+        <div class="feature-card" style="--i:1">
+          <div class="feature-icon"><i class="ti ti-ticket" aria-hidden="true"></i></div>
+          <h3>Билеты</h3>
+          <p>Помощь в поиске и оформлении билетов, выбор класса вагона и мест.</p>
+        </div>
+        <div class="feature-card" style="--i:2">
+          <div class="feature-icon"><i class="ti ti-map-pin" aria-hidden="true"></i></div>
+          <h3>Статус поезда</h3>
+          <p>Отслеживание местоположения вашего поезда в режиме реального времени.</p>
+        </div>
+        <div class="feature-card" style="--i:3">
+          <div class="feature-icon"><i class="ti ti-refresh" aria-hidden="true"></i></div>
+          <h3>Возврат билетов</h3>
+          <p>Информация об условиях возврата и помощь в оформлении заявки.</p>
+        </div>
+        <div class="feature-card" style="--i:4">
+          <div class="feature-icon"><i class="ti ti-star" aria-hidden="true"></i></div>
+          <h3>РЖД Бонус</h3>
+          <p>Проверка баланса бонусных баллов и информация о программе лояльности.</p>
+        </div>
+        <div class="feature-card" style="--i:5">
+          <div class="feature-icon"><i class="ti ti-microphone" aria-hidden="true"></i></div>
+          <h3>Голосовой ввод</h3>
+          <p>Задайте вопрос голосом — ассистент поймёт и ответит мгновенно.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- News -->
+  <section class="news section" id="news" aria-labelledby="newsTitle">
+    <div class="container">
+      <div class="section-header">
+        <div>
+          <h2 class="section-title" id="newsTitle">Новости и полезное</h2>
+          <p class="section-sub">Обновления сервиса и полезная информация для пассажиров</p>
+        </div>
+      </div>
+      <div class="news-grid">
+        <article class="news-card news-card--featured">
+          <div class="news-badge">Новинка</div>
+          <div class="news-icon"><i class="ti ti-sparkles" aria-hidden="true"></i></div>
+          <time class="news-date" datetime="2025-06-10">10 июня 2025</time>
+          <h3>Запуск ИИ-ассистента нового поколения</h3>
+          <p>Виртуальный помощник теперь отвечает на вопросы о расписании, билетах и статусе поезда за считанные секунды.</p>
+          <a href="#" class="news-link">Подробнее <i class="ti ti-arrow-right" aria-hidden="true"></i></a>
+        </article>
+        <article class="news-card">
+          <div class="news-icon"><i class="ti ti-discount" aria-hidden="true"></i></div>
+          <time class="news-date" datetime="2025-06-05">5 июня 2025</time>
+          <h3>Летние скидки на популярные маршруты</h3>
+          <p>До 30% скидки на поездки по направлениям Москва — Санкт-Петербург, Москва — Сочи и другим.</p>
+          <a href="#" class="news-link">Подробнее <i class="ti ti-arrow-right" aria-hidden="true"></i></a>
+        </article>
+        <article class="news-card">
+          <div class="news-icon"><i class="ti ti-device-mobile" aria-hidden="true"></i></div>
+          <time class="news-date" datetime="2025-05-28">28 мая 2025</time>
+          <h3>Голосовой ввод теперь доступен на iOS и Android</h3>
+          <p>Задавайте вопросы ассистенту голосом прямо с мобильного устройства без дополнительных приложений.</p>
+          <a href="#" class="news-link">Подробнее <i class="ti ti-arrow-right" aria-hidden="true"></i></a>
+        </article>
+        <article class="news-card">
+          <div class="news-icon"><i class="ti ti-info-circle" aria-hidden="true"></i></div>
+          <time class="news-date" datetime="2025-05-20">20 мая 2025</time>
+          <h3>Советы: как сэкономить на билетах РЖД</h3>
+          <p>Покупайте заранее, используйте бонусные баллы и следите за акциями — подробная инструкция.</p>
+          <a href="#" class="news-link">Подробнее <i class="ti ti-arrow-right" aria-hidden="true"></i></a>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Banner -->
+  <section class="cta-banner section" aria-label="Призыв к действию">
+    <div class="container cta-inner">
+      <div>
+        <h2>Готовы попробовать?</h2>
+        <p>Откройте чат — первый ответ придёт через 5 секунд.</p>
+      </div>
+      <button class="btn btn-primary btn-lg btn-animated" onclick="showPage('chat')">
+        <i class="ti ti-message-circle" aria-hidden="true"></i>
+        Начать разговор
+      </button>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div class="footer-brand">
+        <a href="#" class="nav-logo" onclick="showPage('home');return false;" aria-label="На главную">
+          <span class="nav-logo-box">Р</span>
+          <span class="nav-logo-text">РЖД <strong>Помощник</strong></span>
+        </a>
+        <p>Виртуальный ассистент для пассажиров РЖД</p>
+      </div>
+      <nav class="footer-nav" aria-label="Нижняя навигация">
+        <a href="#" onclick="showPage('home');return false;">Главная</a>
+        <a href="#news">Новости</a>
+        <a href="#" onclick="showPage('chat');return false;">Ассистент</a>
+        <a href="#" onclick="openModal('login');return false;">Вход</a>
+      </nav>
+      <div class="footer-legal">
+        <button class="footer-link" onclick="openOffer()">Публичная оферта</button>
+        <span aria-hidden="true">·</span>
+        <span>© 2025 РЖД Помощник</span>
+      </div>
+    </div>
+  </footer>
+
+</div><!-- /page-home -->
+
+
+<!-- ══════════════════════════════════════════════
+     СТРАНИЦА 2: ЧАТ (id="page-chat")
+     ══════════════════════════════════════════════ -->
+<div id="page-chat" hidden>
+
+  <div class="rzd-widget">
+
+    <!-- Шапка чата -->
     <div class="rzd-header">
-        <div class="rzd-logo">Р</div>
-        <div class="rzd-header-text">
-            <h1>РЖД Помощник</h1>
-            <p>Виртуальный ассистент</p>
-        </div>
-        <div class="rzd-status">
-            <div class="status-dot"></div>
-            Онлайн
-        </div>
+      <button class="rzd-back" onclick="showPage('home')" aria-label="На главную">
+        <i class="ti ti-arrow-left" aria-hidden="true"></i>
+      </button>
+      <div class="rzd-logo">Р</div>
+      <div class="rzd-header-text">
+        <h1>РЖД Помощник</h1>
+        <p>Виртуальный ассистент</p>
+      </div>
+      <div class="rzd-status">
+        <div class="status-dot"></div>
+        Онлайн
+      </div>
     </div>
 
-    <!-- Тело -->
+    <!-- Тело чата -->
     <div class="rzd-body">
+      <div class="rzd-chips">
+        <button class="chip" onclick="quickMsg('Расписание поездов')">
+          <i class="ti ti-calendar" aria-hidden="true"></i> Расписание
+        </button>
+        <button class="chip" onclick="quickMsg('Купить билет')">
+          <i class="ti ti-ticket" aria-hidden="true"></i> Билеты
+        </button>
+        <button class="chip" onclick="quickMsg('Статус моего поезда')">
+          <i class="ti ti-map-pin" aria-hidden="true"></i> Статус поезда
+        </button>
+        <button class="chip" onclick="quickMsg('Возврат билета')">
+          <i class="ti ti-refresh" aria-hidden="true"></i> Возврат
+        </button>
+        <button class="chip" onclick="quickMsg('Программа лояльности РЖД Бонус')">
+          <i class="ti ti-star" aria-hidden="true"></i> РЖД Бонус
+        </button>
+      </div>
 
-        <!-- Быстрые подсказки -->
-        <div class="rzd-chips">
-            <button class="chip" onclick="quickMsg('Расписание поездов')">
-                <i class="ti ti-calendar" aria-hidden="true"></i> Расписание
-            </button>
-            <button class="chip" onclick="quickMsg('Купить билет')">
-                <i class="ti ti-ticket" aria-hidden="true"></i> Билеты
-            </button>
-            <button class="chip" onclick="quickMsg('Статус моего поезда')">
-                <i class="ti ti-map-pin" aria-hidden="true"></i> Статус поезда
-            </button>
-            <button class="chip" onclick="quickMsg('Возврат билета')">
-                <i class="ti ti-refresh" aria-hidden="true"></i> Возврат
-            </button>
-            <button class="chip" onclick="quickMsg('Программа лояльности РЖД Бонус')">
-                <i class="ti ti-star" aria-hidden="true"></i> РЖД Бонус
-            </button>
-        </div>
-
-        <!-- Чат -->
-        <div class="chat-area" id="chat">
-            <div class="msg bot">
-                <div class="msg-avatar">
-                    <i class="ti ti-train" aria-hidden="true"></i>
-                </div>
-                <div>
-                    <div class="msg-bubble">
-                        Добрый день! Я ИИ-ассистент РЖД. Помогу с расписанием, билетами, статусом поезда и другими вопросами. Чем могу помочь?
-                    </div>
-                    <div class="msg-time">Сейчас</div>
-                </div>
+      <div class="chat-area" id="chat">
+        <div class="msg bot">
+          <div class="msg-avatar">
+            <i class="ti ti-train" aria-hidden="true"></i>
+          </div>
+          <div>
+            <div class="msg-bubble">
+              Добрый день! Я ИИ-ассистент РЖД. Помогу с расписанием, билетами, статусом поезда и другими вопросами. Чем могу помочь?
             </div>
+            <div class="msg-time">Сейчас</div>
+          </div>
         </div>
+      </div>
 
-        <!-- Поле ввода -->
-        <div class="input-row">
-            <button class="btn-voice" id="voiceBtn" onclick="toggleVoice()" aria-label="Голосовой ввод">
-                <i class="ti ti-microphone" aria-hidden="true"></i>
-            </button>
-            <div class="input-wrap">
-        <textarea
-                id="question"
-                placeholder="Введите ваш вопрос..."
-                rows="1"
-                onkeydown="handleKey(event)"
-                oninput="autoResize(this)"
-        ></textarea>
-            </div>
-            <button class="btn-send" id="sendBtn" onclick="ask()" aria-label="Отправить">
-                <i class="ti ti-send" aria-hidden="true"></i>
-            </button>
+      <div class="input-row">
+        <button class="btn-voice" id="voiceBtn" onclick="toggleVoice()" aria-label="Голосовой ввод">
+          <i class="ti ti-microphone" aria-hidden="true"></i>
+        </button>
+        <div class="input-wrap">
+          <textarea
+            id="question"
+            placeholder="Введите ваш вопрос..."
+            rows="1"
+            onkeydown="handleKey(event)"
+            oninput="autoResize(this)"
+          ></textarea>
         </div>
-
+        <button class="btn-send" id="sendBtn" onclick="ask()" aria-label="Отправить">
+          <i class="ti ti-send" aria-hidden="true"></i>
+        </button>
+      </div>
     </div>
+
+  </div>
+</div><!-- /page-chat -->
+
+
+<!-- ══════════════════════════════════════════════
+     МОДАЛКИ (общие для обеих страниц)
+     ══════════════════════════════════════════════ -->
+
+<!-- Вход / Регистрация -->
+<div class="modal-overlay" id="modalOverlay" onclick="closeModal()" aria-hidden="true"></div>
+<div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+  <button class="modal-close" onclick="closeModal()" aria-label="Закрыть"><i class="ti ti-x"></i></button>
+  <div class="modal-tabs" role="tablist">
+    <button class="modal-tab" id="tabLogin"    role="tab" onclick="switchTab('login')"   >Вход</button>
+    <button class="modal-tab" id="tabRegister" role="tab" onclick="switchTab('register')">Регистрация</button>
+  </div>
+  <!-- Login -->
+  <div class="modal-body" id="bodyLogin">
+    <h2 class="modal-title" id="modalTitle">Войти в аккаунт</h2>
+    <p class="modal-sub">Введите данные для входа</p>
+    <div class="form-group">
+      <label for="loginEmail">Email</label>
+      <input type="email" id="loginEmail" placeholder="example@mail.ru" autocomplete="email">
+    </div>
+    <div class="form-group">
+      <label for="loginPass">Пароль</label>
+      <input type="password" id="loginPass" placeholder="Введите пароль" autocomplete="current-password">
+    </div>
+    <a href="#" class="form-hint">Забыли пароль?</a>
+    <button class="btn btn-primary btn-full" onclick="handleLogin()">
+      <i class="ti ti-login" aria-hidden="true"></i> Войти
+    </button>
+    <p class="modal-switch">Нет аккаунта? <button onclick="switchTab('register')">Зарегистрируйтесь</button></p>
+  </div>
+  <!-- Register -->
+  <div class="modal-body" id="bodyRegister" hidden>
+    <h2 class="modal-title">Создать аккаунт</h2>
+    <p class="modal-sub">Быстрая регистрация</p>
+    <div class="form-group">
+      <label for="regName">Имя</label>
+      <input type="text" id="regName" placeholder="Иван Иванов" autocomplete="name">
+    </div>
+    <div class="form-group">
+      <label for="regEmail">Email</label>
+      <input type="email" id="regEmail" placeholder="example@mail.ru" autocomplete="email">
+    </div>
+    <div class="form-group">
+      <label for="regPass">Пароль</label>
+      <input type="password" id="regPass" placeholder="Минимум 8 символов" autocomplete="new-password">
+    </div>
+    <div class="form-check">
+      <input type="checkbox" id="offerCheck">
+      <label for="offerCheck">
+        Я принимаю условия
+        <button class="inline-link" onclick="openOffer()" type="button">публичной оферты</button>
+      </label>
+    </div>
+    <button class="btn btn-primary btn-full" onclick="handleRegister()">
+      <i class="ti ti-user-plus" aria-hidden="true"></i> Зарегистрироваться
+    </button>
+    <p class="modal-switch">Уже есть аккаунт? <button onclick="switchTab('login')">Войдите</button></p>
+  </div>
+</div>
+
+<!-- Оферта -->
+<div class="modal-overlay" id="offerOverlay" onclick="closeOffer()" aria-hidden="true"></div>
+<div class="modal modal--wide" id="offerModal" role="dialog" aria-modal="true" aria-labelledby="offerTitle">
+  <button class="modal-close" onclick="closeOffer()" aria-label="Закрыть"><i class="ti ti-x"></i></button>
+  <div class="modal-body offer-body">
+    <h2 class="modal-title" id="offerTitle">Публичная оферта</h2>
+    <p class="modal-sub">Последнее обновление: 1 июня 2025 г.</p>
+    <div class="offer-content">
+      <h3>1. Общие положения</h3>
+      <p>Настоящая публичная оферта является официальным предложением сервиса «РЖД Помощник» заключить договор об использовании ИИ-ассистента на условиях, изложенных ниже. Использование Сервиса означает безоговорочное принятие всех условий.</p>
+      <h3>2. Предмет договора</h3>
+      <p>Сервис предоставляет доступ к виртуальному ИИ-ассистенту, который отвечает на вопросы о расписании поездов, стоимости и оформлении билетов, статусе поезда и программе лояльности «РЖД Бонус».</p>
+      <h3>3. Права и обязанности пользователя</h3>
+      <p>Пользователь обязуется использовать Сервис исключительно в законных целях и не предпринимать действий, нарушающих его работу. Пользователь вправе в любое время прекратить использование Сервиса и запросить удаление своих данных.</p>
+      <h3>4. Обработка персональных данных</h3>
+      <p>Сервис обрабатывает только данные, предоставленные добровольно: email и имя при регистрации. Данные используются для идентификации пользователя и улучшения качества ответов ассистента. Данные не передаются третьим лицам без согласия пользователя.</p>
+      <h3>5. Ограничение ответственности</h3>
+      <p>Информация ассистента носит справочный характер. Актуальность расписания и цен следует проверять на официальном сайте РЖД. Сервис не несёт ответственности за решения, принятые на основе ответов ассистента.</p>
+      <h3>6. Изменение условий</h3>
+      <p>Сервис оставляет за собой право изменять условия оферты. Актуальная версия всегда доступна на данной странице. Продолжение использования Сервиса означает согласие с новой редакцией.</p>
+      <h3>7. Контакты</h3>
+      <p>По вопросам оферты: <a href="mailto:support@rzd-assistant.ru">support@rzd-assistant.ru</a></p>
+    </div>
+    <button class="btn btn-primary btn-full" onclick="closeOffer()">Понятно, закрыть</button>
+  </div>
 </div>
 
 <!-- порядок важен: chat и voice до app -->
-<script src="/js/chat.js"></script>
-<script src="/js/voice.js"></script>
-<script src="/js/app.js"></script>
+<script src="js/chat.js"></script>
+<script src="js/voice.js"></script>
+<script src="js/app.js"></script>
 </body>
 </html>
