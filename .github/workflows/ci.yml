@@ -96,7 +96,7 @@ jobs:
           test -d src/main/java/ru/superchack/exception  || (echo "❌ exception не найден"  && exit 1)
           echo "✅ Все пакеты на месте"
 
-      - name: Проверка application.yaml
+      - name: Проверка application.yml
         run: |
           test -f src/main/resources/application.yml \
             || (echo "❌ application.yml не найден" && exit 1)
