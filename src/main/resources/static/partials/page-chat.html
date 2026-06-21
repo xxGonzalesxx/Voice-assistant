@@ -1,0 +1,72 @@
+<div class="rzd-widget">
+
+    <!-- Шапка чата -->
+    <div class="rzd-header">
+        <button class="rzd-back" onclick="showPage('home')" aria-label="На главную">
+            <i class="ti ti-arrow-left" aria-hidden="true"></i>
+        </button>
+        <div class="rzd-logo">Р</div>
+        <div class="rzd-header-text">
+            <h1>РЖД Помощник</h1>
+            <p>Виртуальный ассистент</p>
+        </div>
+        <div class="rzd-status">
+            <div class="status-dot"></div>
+            Онлайн
+        </div>
+    </div>
+
+    <!-- Тело чата -->
+    <div class="rzd-body">
+        <div class="rzd-chips">
+            <button class="chip" onclick="quickMsg('Расписание поездов')">
+                <i class="ti ti-calendar" aria-hidden="true"></i> Расписание
+            </button>
+            <button class="chip" onclick="quickMsg('Купить билет')">
+                <i class="ti ti-ticket" aria-hidden="true"></i> Билеты
+            </button>
+            <button class="chip" onclick="quickMsg('Статус моего поезда')">
+                <i class="ti ti-map-pin" aria-hidden="true"></i> Статус поезда
+            </button>
+            <button class="chip" onclick="quickMsg('Возврат билета')">
+                <i class="ti ti-refresh" aria-hidden="true"></i> Возврат
+            </button>
+            <button class="chip" onclick="quickMsg('Программа лояльности РЖД Бонус')">
+                <i class="ti ti-star" aria-hidden="true"></i> РЖД Бонус
+            </button>
+        </div>
+
+        <div class="chat-area" id="chat">
+            <div class="msg bot">
+                <div class="msg-avatar">
+                    <i class="ti ti-train" aria-hidden="true"></i>
+                </div>
+                <div>
+                    <div class="msg-bubble">
+                        Добрый день! Я ИИ-ассистент РЖД. Помогу с расписанием, билетами, статусом поезда и другими вопросами. Чем могу помочь?
+                    </div>
+                    <div class="msg-time">Сейчас</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="input-row">
+            <button class="btn-voice" id="voiceBtn" onclick="toggleVoice()" aria-label="Голосовой ввод">
+                <i class="ti ti-microphone" aria-hidden="true"></i>
+            </button>
+            <div class="input-wrap">
+        <textarea
+                id="question"
+                placeholder="Введите ваш вопрос..."
+                rows="1"
+                onkeydown="handleKey(event)"
+                oninput="autoResize(this)"
+        ></textarea>
+            </div>
+            <button class="btn-send" id="sendBtn" onclick="ask()" aria-label="Отправить">
+                <i class="ti ti-send" aria-hidden="true"></i>
+            </button>
+        </div>
+    </div>
+
+</div>

@@ -1,0 +1,82 @@
+<!-- Вход / Регистрация -->
+<div class="modal-overlay" id="modalOverlay" onclick="closeModal()" aria-hidden="true"></div>
+<div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <button class="modal-close" onclick="closeModal()" aria-label="Закрыть"><i class="ti ti-x"></i></button>
+    <div class="modal-tabs" role="tablist">
+        <button class="modal-tab" id="tabLogin"    role="tab" onclick="switchTab('login')"   >Вход</button>
+        <button class="modal-tab" id="tabRegister" role="tab" onclick="switchTab('register')">Регистрация</button>
+    </div>
+    <!-- Login -->
+    <div class="modal-body" id="bodyLogin">
+        <h2 class="modal-title" id="modalTitle">Войти в аккаунт</h2>
+        <p class="modal-sub">Введите данные для входа</p>
+        <div class="form-group">
+            <label for="loginEmail">Email</label>
+            <input type="email" id="loginEmail" placeholder="example@mail.ru" autocomplete="email">
+        </div>
+        <div class="form-group">
+            <label for="loginPass">Пароль</label>
+            <input type="password" id="loginPass" placeholder="Введите пароль" autocomplete="current-password">
+        </div>
+        <a href="#" class="form-hint">Забыли пароль?</a>
+        <button class="btn btn-primary btn-full" onclick="handleLogin()">
+            <i class="ti ti-login" aria-hidden="true"></i> Войти
+        </button>
+        <p class="modal-switch">Нет аккаунта? <button onclick="switchTab('register')">Зарегистрируйтесь</button></p>
+    </div>
+    <!-- Register -->
+    <div class="modal-body" id="bodyRegister" hidden>
+        <h2 class="modal-title">Создать аккаунт</h2>
+        <p class="modal-sub">Быстрая регистрация</p>
+        <div class="form-group">
+            <label for="regName">Имя</label>
+            <input type="text" id="regName" placeholder="Иван Иванов" autocomplete="name">
+        </div>
+        <div class="form-group">
+            <label for="regEmail">Email</label>
+            <input type="email" id="regEmail" placeholder="example@mail.ru" autocomplete="email">
+        </div>
+        <div class="form-group">
+            <label for="regPass">Пароль</label>
+            <input type="password" id="regPass" placeholder="Минимум 8 символов" autocomplete="new-password">
+        </div>
+        <div class="form-check">
+            <input type="checkbox" id="offerCheck">
+            <label for="offerCheck">
+                Я принимаю условия
+                <button class="inline-link" onclick="openOffer()" type="button">публичной оферты</button>
+            </label>
+        </div>
+        <button class="btn btn-primary btn-full" onclick="handleRegister()">
+            <i class="ti ti-user-plus" aria-hidden="true"></i> Зарегистрироваться
+        </button>
+        <p class="modal-switch">Уже есть аккаунт? <button onclick="switchTab('login')">Войдите</button></p>
+    </div>
+</div>
+
+<!-- Оферта -->
+<div class="modal-overlay" id="offerOverlay" onclick="closeOffer()" aria-hidden="true"></div>
+<div class="modal modal--wide" id="offerModal" role="dialog" aria-modal="true" aria-labelledby="offerTitle">
+    <button class="modal-close" onclick="closeOffer()" aria-label="Закрыть"><i class="ti ti-x"></i></button>
+    <div class="modal-body offer-body">
+        <h2 class="modal-title" id="offerTitle">Публичная оферта</h2>
+        <p class="modal-sub">Последнее обновление: 1 июня 2025 г.</p>
+        <div class="offer-content">
+            <h3>1. Общие положения</h3>
+            <p>Настоящая публичная оферта является официальным предложением сервиса «РЖД Помощник» заключить договор об использовании ИИ-ассистента на условиях, изложенных ниже. Использование Сервиса означает безоговорочное принятие всех условий.</p>
+            <h3>2. Предмет договора</h3>
+            <p>Сервис предоставляет доступ к виртуальному ИИ-ассистенту, который отвечает на вопросы о расписании поездов, стоимости и оформлении билетов, статусе поезда и программе лояльности «РЖД Бонус».</p>
+            <h3>3. Права и обязанности пользователя</h3>
+            <p>Пользователь обязуется использовать Сервис исключительно в законных целях и не предпринимать действий, нарушающих его работу. Пользователь вправе в любое время прекратить использование Сервиса и запросить удаление своих данных.</p>
+            <h3>4. Обработка персональных данных</h3>
+            <p>Сервис обрабатывает только данные, предоставленные добровольно: email и имя при регистрации. Данные используются для идентификации пользователя и улучшения качества ответов ассистента. Данные не передаются третьим лицам без согласия пользователя.</p>
+            <h3>5. Ограничение ответственности</h3>
+            <p>Информация ассистента носит справочный характер. Актуальность расписания и цен следует проверять на официальном сайте РЖД. Сервис не несёт ответственности за решения, принятые на основе ответов ассистента.</p>
+            <h3>6. Изменение условий</h3>
+            <p>Сервис оставляет за собой право изменять условия оферты. Актуальная версия всегда доступна на данной странице. Продолжение использования Сервиса означает согласие с новой редакцией.</p>
+            <h3>7. Контакты</h3>
+            <p>По вопросам оферты: <a href="mailto:support@rzd-assistant.ru">support@rzd-assistant.ru</a></p>
+        </div>
+        <button class="btn btn-primary btn-full" onclick="closeOffer()">Понятно, закрыть</button>
+    </div>
+</div>
