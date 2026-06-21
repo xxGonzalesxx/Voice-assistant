@@ -1,0 +1,25 @@
+<header class="navbar" id="navbar">
+    <div class="navbar-inner">
+        <a href="#" class="nav-logo" onclick="showPage('home')" aria-label="На главную">
+            <span class="nav-logo-box">Р</span>
+            <span class="nav-logo-text">РЖД <strong>Помощник</strong></span>
+        </a>
+        <nav class="nav-links" id="navLinks" aria-label="Основная навигация">
+            <a href="#" class="nav-link active" onclick="showPage('home');return false;">Главная</a>
+            <a href="#news"  class="nav-link">Новости</a>
+            <a href="#about" class="nav-link">О сервисе</a>
+            <a href="#"      class="nav-link" onclick="openOffer(event)">Оферта</a>
+        </nav>
+        <div class="nav-actions">
+            <button class="btn btn-ghost" onclick="showPage('chat')">
+                <i class="ti ti-message-circle" aria-hidden="true"></i>
+                <span>Ассистент</span>
+            </button>
+            <button class="btn btn-outline" onclick="openModal('login')">Вход</button>
+            <button class="btn btn-primary" onclick="openModal('register')">Регистрация</button>
+            <button class="nav-burger" id="burger" onclick="toggleMenu()" aria-label="Меню" aria-expanded="false">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </div>
+</header>

@@ -9,10 +9,25 @@ services:
     volumes:
       - ollama_data:/root/.ollama
     restart: unless-stopped
-    command: >
-      sh -c "ollama serve &
-             until ollama list > /dev/null 2>&1; do sleep 1; done &&
-             ollama pull llama3.2:3b &&
-             wait"
+    command: ollama serve
+
+  postgres:
+    image: postgres:16
+    container_name: rzd-postgres
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: rzd_assistant
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      PGDATA: /var/lib/postgresql/data/pgdata
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./init-db.sql:/docker-entrypoint-initdb.d/init-db.sql
+    restart: unless-stopped
+
 volumes:
   ollama_data:
+    name: rzd_ollama_data
+  postgres_data:
+    name: rzd_postgres_data
