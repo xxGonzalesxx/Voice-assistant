@@ -6,13 +6,14 @@
         <button class="modal-tab" id="tabLogin"    role="tab" onclick="switchTab('login')"   >Вход</button>
         <button class="modal-tab" id="tabRegister" role="tab" onclick="switchTab('register')">Регистрация</button>
     </div>
-    <!-- Login -->
+
+    <!-- ========== ВХОД ========== -->
     <div class="modal-body" id="bodyLogin">
         <h2 class="modal-title" id="modalTitle">Войти в аккаунт</h2>
-        <p class="modal-sub">Введите данные для входа</p>
+        <p class="modal-sub">Введите Email или имя пользователя</p>
         <div class="form-group">
-            <label for="loginEmail">Email</label>
-            <input type="email" id="loginEmail" placeholder="example@mail.ru" autocomplete="email">
+            <label for="loginEmail">Email или имя пользователя</label>
+            <input type="text" id="loginEmail" placeholder="example@mail.ru или имя" autocomplete="username">
         </div>
         <div class="form-group">
             <label for="loginPass">Пароль</label>
@@ -24,13 +25,14 @@
         </button>
         <p class="modal-switch">Нет аккаунта? <button onclick="switchTab('register')">Зарегистрируйтесь</button></p>
     </div>
-    <!-- Register -->
+
+    <!-- ========== РЕГИСТРАЦИЯ ========== -->
     <div class="modal-body" id="bodyRegister" hidden>
         <h2 class="modal-title">Создать аккаунт</h2>
         <p class="modal-sub">Быстрая регистрация</p>
         <div class="form-group">
-            <label for="regName">Имя</label>
-            <input type="text" id="regName" placeholder="Иван Иванов" autocomplete="name">
+            <label for="regName">Имя пользователя</label>
+            <input type="text" id="regName" placeholder="Введите имя" autocomplete="username">
         </div>
         <div class="form-group">
             <label for="regEmail">Email</label>
@@ -54,7 +56,7 @@
     </div>
 </div>
 
-<!-- Оферта -->
+<!-- ========== ОФЕРТА ========== -->
 <div class="modal-overlay" id="offerOverlay" onclick="closeOffer()" aria-hidden="true"></div>
 <div class="modal modal--wide" id="offerModal" role="dialog" aria-modal="true" aria-labelledby="offerTitle">
     <button class="modal-close" onclick="closeOffer()" aria-label="Закрыть"><i class="ti ti-x"></i></button>
