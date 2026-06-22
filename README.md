@@ -90,153 +90,91 @@
 | **Git** | Контроль версий |
 
 ---
-
-## 🏗️ Архитектура проекта
-C:.
-│   .gitignore
-│   AI-assistant.iml
-│   docker-compose.yml
-│   init-db.sql
-│   pom.xml
-│   README.md
-│   
-├───.idea
-│       .gitignore
-│       compiler.xml
-│       encodings.xml
-│       git_toolbox_blame.xml
-│       jarRepositories.xml
-│       misc.xml
-│       modules.xml
-│       vcs.xml
-│       workspace.xml
-│       
-├───.mvn
-└───src
-    └───main
-        ├───java
-        │   └───ru
-        │       └───superchack
-        │           │   ApplicationRunner.java
-        │           │   
-        │           ├───config
-        │           │       AppConfig.java
-        │           │       SecurityConfig.java
-        │           │       
-        │           ├───controller
-        │           │       AuthController.java
-        │           │       ChatController.java
-        │           │       HistoryController.java
-        │           │       
-        │           ├───dto
-        │           │   ├───Chatdto
-        │           │   │       ChatHistoryResponse.java
-        │           │   │       ChatRequest.java
-        │           │   │       ChatResponse.java
-        │           │   │       
-        │           │   └───Ollamadto
-        │           │           OllamaRequest.java
-        │           │           OllamaResponse.java
-        │           │           
-        │           ├───exception
-        │           │       ApiException.java
-        │           │       GlobalExceptionHandler.java
-        │           │       
-        │           ├───model
-        │           │       Message.java
-        │           │       
-        │           ├───repository
-        │           │       MessageRepository.java
-        │           │       
-        │           ├───security
-        │           │   ├───dto
-        │           │   │       AuthRequest.java
-        │           │   │       AuthResponse.java
-        │           │   │       
-        │           │   ├───model
-        │           │   │       Role.java
-        │           │   │       User.java
-        │           │   │       
-        │           │   ├───repository
-        │           │   │       RoleRepository.java
-        │           │   │       UserRepository.java
-        │           │   │       
-        │           │   └───service
-        │           │           AuthService.java
-        │           │           UserDetailsServiceImpl.java
-        │           │           
-        │           └───service
-        │                   ChatHistoryService.java
-        │                   OllamaService.java
-        │                   
-        └───resources
-            │   application.yml
-            │   
-            └───static
-                │   index.html
-                │   
-                ├───css
-                │       style.css
-                │       
-                ├───fonts
-                ├───img
-                ├───js
-                │       app.js
-                │       chat.js
-                │       voice.js
-                │       
-                └───partials
-                        features.html
-                        footer.html
-                        hero.html
-                        modals.html
-                        navbar.html
-                        news.html
-                        page-chat.html
-
-text
-
----
-
-## 📁 Структура проекта
-AI-assistant/
-├── 📁 .github/ # CI/CD workflows
-│ └── workflows/ci.yml
-├── 📁 init-db.sql # Инициализация базы данных
+```plaintext
+📁 AI-assistant/
+│
+├── 📁 .github/
+│   └── 📁 workflows/
+│       └── 📄 ci.yml
+│
+├── 📄 init-db.sql
+│
 ├── 📁 src/
-│ └── main/
-│ ├── java/ru/superchack/
-│ │ ├── ApplicationRunner.java # Точка входа
-│ │ ├── 📁 config/ # Конфигурации
-│ │ │ ├── AppConfig.java # WebClient
-│ │ │ └── SecurityConfig.java # Spring Security
-│ │ ├── 📁 controller/ # REST контроллеры
-│ │ │ ├── AuthController.java # /api/auth/*
-│ │ │ ├── ChatController.java # /api/chat
-│ │ │ └── HistoryController.java # /api/history
-│ │ ├── 📁 dto/ # Data Transfer Objects
-│ │ ├── 📁 exception/ # Обработка ошибок
-│ │ ├── 📁 model/ # JPA сущности
-│ │ ├── 📁 repository/ # JPA репозитории
-│ │ ├── 📁 security/ # Spring Security
-│ │ │ ├── dto/ # Auth DTO
-│ │ │ ├── model/ # User, Role
-│ │ │ ├── repository/ # UserRepository, RoleRepository
-│ │ │ └── service/ # UserDetailsServiceImpl
-│ │ └── 📁 service/ # Бизнес-логика
-│ └── resources/
-│ ├── application.yml # Конфигурация Spring Boot
-│ └── 📁 static/ # Фронтенд
-│ ├── index.html
-│ ├── 📁 css/
-│ ├── 📁 js/
-│ └── 📁 partials/
-├── 📁 target/ # Скомпилированные файлы
-├── 📄 docker-compose.yml # Docker Compose
-├── 📄 pom.xml # Maven зависимости
-└── 📄 README.md # Документация
-
-text
+│   └── 📁 main/
+│       ├── 📁 java/
+│       │   └── 📁 ru/
+│       │       └── 📁 superchack/
+│       │           ├── 📄 ApplicationRunner.java
+│       │           │
+│       │           ├── 📁 config/
+│       │           │   ├── 📄 AppConfig.java
+│       │           │   └── 📄 SecurityConfig.java
+│       │           │
+│       │           ├── 📁 controller/
+│       │           │   ├── 📄 AuthController.java
+│       │           │   ├── 📄 ChatController.java
+│       │           │   └── 📄 HistoryController.java
+│       │           │
+│       │           ├── 📁 dto/
+│       │           │   ├── 📁 Chatdto/
+│       │           │   │   ├── 📄 ChatRequest.java
+│       │           │   │   ├── 📄 ChatResponse.java
+│       │           │   │   └── 📄 ChatHistoryResponse.java
+│       │           │   └── 📁 Ollamadto/
+│       │           │       ├── 📄 OllamaRequest.java
+│       │           │       └── 📄 OllamaResponse.java
+│       │           │
+│       │           ├── 📁 exception/
+│       │           │   ├── 📄 ApiException.java
+│       │           │   └── 📄 GlobalExceptionHandler.java
+│       │           │
+│       │           ├── 📁 model/
+│       │           │   └── 📄 Message.java
+│       │           │
+│       │           ├── 📁 repository/
+│       │           │   └── 📄 MessageRepository.java
+│       │           │
+│       │           ├── 📁 security/
+│       │           │   ├── 📁 dto/
+│       │           │   │   ├── 📄 AuthRequest.java
+│       │           │   │   └── 📄 AuthResponse.java
+│       │           │   ├── 📁 model/
+│       │           │   │   ├── 📄 User.java
+│       │           │   │   └── 📄 Role.java
+│       │           │   ├── 📁 repository/
+│       │           │   │   ├── 📄 UserRepository.java
+│       │           │   │   └── 📄 RoleRepository.java
+│       │           │   └── 📁 service/
+│       │           │       ├── 📄 UserDetailsServiceImpl.java
+│       │           │       └── 📄 AuthService.java
+│       │           │
+│       │           └── 📁 service/
+│       │               ├── 📄 OllamaService.java
+│       │               └── 📄 ChatHistoryService.java
+│       │
+│       └── 📁 resources/
+│           ├── 📄 application.yml
+│           └── 📁 static/
+│               ├── 📄 index.html
+│               ├── 📁 css/
+│               │   └── 📄 style.css
+│               ├── 📁 js/
+│               │   ├── 📄 app.js
+│               │   ├── 📄 chat.js
+│               │   └── 📄 voice.js
+│               └── 📁 partials/
+│                   ├── 📄 navbar.html
+│                   ├── 📄 hero.html
+│                   ├── 📄 features.html
+│                   ├── 📄 news.html
+│                   ├── 📄 footer.html
+│                   ├── 📄 page-chat.html
+│                   └── 📄 modals.html
+│
+├── 📄 docker-compose.yml
+├── 📄 pom.xml
+└── 📄 README.md
+```
 
 ---
 
