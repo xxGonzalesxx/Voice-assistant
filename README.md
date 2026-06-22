@@ -92,45 +92,107 @@
 ---
 
 ## 🏗️ Архитектура проекта
-┌──────────────────────────────────────────────────────────────────────┐
-│ Браузер (Frontend) │
-│ ┌──────────────┐ ┌──────────────┐ ┌──────────────────────────┐ │
-│ │ index.html │ │ style.css │ │ app.js + chat.js + │ │
-│ │ (чат) │ │ (РЖД стиль) │ │ voice.js │ │
-│ └──────────────┘ └──────────────┘ └──────────────────────────┘ │
-└─────────────────────────────────┬────────────────────────────────────┘
-│ HTTP/HTTPS
-▼
-┌──────────────────────────────────────────────────────────────────────┐
-│ Spring Boot (Backend) │
-│ ┌────────────────┐ ┌─────────────────┐ ┌──────────────────────┐ │
-│ │ ChatController │ │ OllamaService │ │ ChatHistoryService │ │
-│ │ (/api/chat) │ │ (WebClient) │ │ (JPA) │ │
-│ └────────────────┘ └─────────────────┘ └──────────────────────┘ │
-│ ┌────────────────┐ ┌─────────────────┐ │
-│ │ AuthController│ │ SecurityConfig │ │
-│ │(/api/auth/*) │ │ (JWT + BCrypt) │ │
-│ └────────────────┘ └─────────────────┘ │
-└───────────┬─────────────────────────┬──────────────────────────────┘
-│ │
-▼ ▼
-┌───────────────────────┐ ┌──────────────────────────────────────┐
-│ Ollama (LLM) │ │ PostgreSQL (База данных) │
-│ llama3.2:3b │ │ ┌──────────────────────────────────┐│
-│ Port: 11434 │ │ │ messages ││
-│ │ │ │ id, user_id, message, reply ││
-│ ⚠️ ~3.2 GB RAM │ │ │ created_at, session_id ││
-└───────────────────────┘ │ ├──────────────────────────────────┤│
-│ │ users ││
-│ │ id, username, email, password ││
-│ ├──────────────────────────────────┤│
-│ │ roles ││
-│ │ id, name ││
-│ ├──────────────────────────────────┤│
-│ │ user_roles ││
-│ │ user_id, role_id ││
-│ └──────────────────────────────────┘│
-└──────────────────────────────────────┘
+C:.
+│   .gitignore
+│   AI-assistant.iml
+│   docker-compose.yml
+│   init-db.sql
+│   pom.xml
+│   README.md
+│   
+├───.idea
+│       .gitignore
+│       compiler.xml
+│       encodings.xml
+│       git_toolbox_blame.xml
+│       jarRepositories.xml
+│       misc.xml
+│       modules.xml
+│       vcs.xml
+│       workspace.xml
+│       
+├───.mvn
+└───src
+    └───main
+        ├───java
+        │   └───ru
+        │       └───superchack
+        │           │   ApplicationRunner.java
+        │           │   
+        │           ├───config
+        │           │       AppConfig.java
+        │           │       SecurityConfig.java
+        │           │       
+        │           ├───controller
+        │           │       AuthController.java
+        │           │       ChatController.java
+        │           │       HistoryController.java
+        │           │       
+        │           ├───dto
+        │           │   ├───Chatdto
+        │           │   │       ChatHistoryResponse.java
+        │           │   │       ChatRequest.java
+        │           │   │       ChatResponse.java
+        │           │   │       
+        │           │   └───Ollamadto
+        │           │           OllamaRequest.java
+        │           │           OllamaResponse.java
+        │           │           
+        │           ├───exception
+        │           │       ApiException.java
+        │           │       GlobalExceptionHandler.java
+        │           │       
+        │           ├───model
+        │           │       Message.java
+        │           │       
+        │           ├───repository
+        │           │       MessageRepository.java
+        │           │       
+        │           ├───security
+        │           │   ├───dto
+        │           │   │       AuthRequest.java
+        │           │   │       AuthResponse.java
+        │           │   │       
+        │           │   ├───model
+        │           │   │       Role.java
+        │           │   │       User.java
+        │           │   │       
+        │           │   ├───repository
+        │           │   │       RoleRepository.java
+        │           │   │       UserRepository.java
+        │           │   │       
+        │           │   └───service
+        │           │           AuthService.java
+        │           │           UserDetailsServiceImpl.java
+        │           │           
+        │           └───service
+        │                   ChatHistoryService.java
+        │                   OllamaService.java
+        │                   
+        └───resources
+            │   application.yml
+            │   
+            └───static
+                │   index.html
+                │   
+                ├───css
+                │       style.css
+                │       
+                ├───fonts
+                ├───img
+                ├───js
+                │       app.js
+                │       chat.js
+                │       voice.js
+                │       
+                └───partials
+                        features.html
+                        footer.html
+                        hero.html
+                        modals.html
+                        navbar.html
+                        news.html
+                        page-chat.html
 
 text
 
@@ -407,22 +469,7 @@ RAG (Retrieval-Augmented Generation) — добавление знаний о Р
 
 Сертификация — для промышленного использования
 
-⚠️ Частые проблемы и решения
-Проблема	Решение
-Ollama не запускается	docker logs rzd-ollama — проверить логи
-Порт 8080 занят	Сменить порт в application.yml
-Подключение к БД	Проверить docker ps и docker logs rzd-postgres
-Модель не скачалась	docker exec -it rzd-ollama ollama pull llama3.2:3b
-CSS не подгружается	Очистить кэш браузера (Ctrl+F5)
-Ошибка входа по email	Проверить, что email совпадает с зарегистрированным
-🙏 Благодарности
-Spring Boot — за отличный фреймворк
 
-Ollama — за локальный запуск LLM
-
-PostgreSQL — за надёжную базу данных
-
-JetBrains — за IntelliJ IDEA
 
 📄 Лицензия
 Проект разработан в рамках учебно-исследовательской работы.
@@ -440,5 +487,3 @@ https://img.shields.io/github/stars/xxGonzalesxx/AI-assistant.svg?style=social
 
 📞 Контакты
 По всем вопросам: stef.kir1999@gmail.com
-
-Сделано с ❤️ для пассажиров РЖД
