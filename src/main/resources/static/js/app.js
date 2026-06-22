@@ -3,7 +3,6 @@
 (function() {
   'use strict';
 
-  // Кэш DOM элементов
   var dom = {};
 
   function get(id) {
@@ -125,30 +124,76 @@
       if (tabRegister) tabRegister.classList.toggle('active', !isLogin);
     };
 
-    window.handleLogin = function() {
-      var email = get('loginEmail');
-      var pass = get('loginPass');
-      if (!email || !pass || !email.value.trim() || !pass.value) {
-        alert('Заполните все поля');
+    window.handleLogin = async function () {
+      var email = document.getElementById('loginEmail')?.value.trim();
+      var pass = document.getElementById('loginPass')?.value;
+
+      if (!email || !pass) {
+        alert('Пожалуйста, заполните все поля.');
         return;
       }
-      alert('Вход будет подключен к Spring Boot');
+
+      try {
+        var response = await fetch('/api/auth/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ username: email, password: pass })
+        });
+
+        var data = await response.json();
+
+        if (response.ok) {
+          alert('Вход выполнен успешно!');
+          closeModal();
+          localStorage.setItem('user', JSON.stringify(data));
+        } else {
+          alert(data.message || 'Ошибка входа. Проверьте данные.');
+        }
+      } catch (error) {
+        alert('Ошибка соединения с сервером.');
+        console.error('Login error:', error);
+      }
     };
 
-    window.handleRegister = function() {
-      var name = get('regName');
-      var email = get('regEmail');
-      var pass = get('regPass');
-      var offer = get('offerCheck');
-      if (!name || !email || !pass || !name.value.trim() || !email.value.trim() || !pass.value) {
-        alert('Заполните все поля');
+    window.handleRegister = async function () {
+      var name = document.getElementById('regName')?.value.trim();
+      var email = document.getElementById('regEmail')?.value.trim();
+      var pass = document.getElementById('regPass')?.value;
+      var offer = document.getElementById('offerCheck')?.checked;
+
+      if (!name || !email || !pass) {
+        alert('Пожалуйста, заполните все поля.');
         return;
       }
-      if (!offer || !offer.checked) {
-        alert('Примите условия оферты');
+
+      if (!offer) {
+        alert('Необходимо принять условия публичной оферты.');
         return;
       }
-      alert('Регистрация будет подключена к Spring Boot');
+
+      try {
+        var response = await fetch('/api/auth/register', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ username: name, email: email, password: pass })
+        });
+
+        var data = await response.json();
+
+        if (response.ok) {
+          alert('Регистрация прошла успешно! Теперь войдите.');
+          switchTab('login');
+          document.getElementById('regName').value = '';
+          document.getElementById('regEmail').value = '';
+          document.getElementById('regPass').value = '';
+          document.getElementById('offerCheck').checked = false;
+        } else {
+          alert(data.message || 'Ошибка регистрации. Попробуйте ещё раз.');
+        }
+      } catch (error) {
+        alert('Ошибка соединения с сервером.');
+        console.error('Register error:', error);
+      }
     };
   })();
 
@@ -195,6 +240,8 @@
 
   // ==================== ЗАГРУЗКА PARTIALS ====================
   async function loadPartials() {
+    console.log('🔄 Загрузка partials...');
+
     var partials = {
       'slot-navbar': '/partials/navbar.html',
       'slot-hero': '/partials/hero.html',
@@ -210,17 +257,21 @@
         var res = await fetch(partials[slot]);
         var html = await res.text();
         var el = get(slot);
-        if (el) el.innerHTML = html;
+        if (el) {
+          el.innerHTML = html;
+          console.log('✅ Загружен: ' + slot);
+        }
       } catch (err) {
-        console.error('Ошибка:', partials[slot]);
+        console.error('❌ Ошибка:', partials[slot]);
       }
     }
 
     if (typeof initChat === 'function') initChat();
     if (typeof initVoice === 'function') initVoice();
 
-    console.log('Partials loaded');
+    console.log('✅ Partials loaded');
   }
 
   document.addEventListener('DOMContentLoaded', loadPartials);
+
 })();
