@@ -207,208 +207,49 @@
 | Maven | 3.9+ | Встроен в IDEA |
 | Git | 2.40+ | [Git](https://git-scm.com/) |
 
-### 1. Клонирование репозитория
-
-```bash
-git clone https://github.com/xxGonzalesxx/AI-assistant.git
-cd AI-assistant
-2. Запуск с Docker Compose
-bash
-# Запустить Ollama + PostgreSQL
-docker-compose up -d
-
-# Проверить статус
-docker-compose ps
-3. Сборка и запуск Spring Boot
-bash
-# Собрать проект
-mvn clean package
-
-# Запустить приложение
-mvn spring-boot:run
-4. Открыть в браузере
-text
-http://localhost:8080
-5. Остановка
-bash
-docker-compose down          # Остановить контейнеры
-Ctrl+C                       # Остановить Spring Boot
-📸 Скриншоты
-Главная страница
-https://screenshots/home.png
-
-Чат с AI-ассистентом
-https://screenshots/chat.png
-
-Голосовой ввод
-https://screenshots/voice.png
-
-Вход и регистрация
-https://screenshots/login.png
-https://screenshots/register.png
-
-История сообщений в БД
-https://screenshots/database.png
-
 🗄️ База данных
-Схема таблиц
-sql
--- Сообщения чата
-CREATE TABLE messages (
-    id BIGSERIAL PRIMARY KEY,
-    user_id VARCHAR(36) NOT NULL,
-    message TEXT NOT NULL,
-    reply TEXT,
-    session_id VARCHAR(36),
-    created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-    updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-    is_deleted BOOLEAN DEFAULT FALSE,
-    model_used VARCHAR(50),
-    tokens_used INTEGER
-);
+Схема таблиц(ER-Модель)
+```mermaid
+erDiagram
+    users {
+        BIGSERIAL id PK
+        VARCHAR(50) username UK
+        VARCHAR(100) email UK
+        VARCHAR(255) password
+        VARCHAR(50) first_name
+        VARCHAR(50) last_name
+        BOOLEAN enabled
+        TIMESTAMP created_at
+        TIMESTAMP updated_at
+    }
 
--- Пользователи
-CREATE TABLE users (
-    id BIGSERIAL PRIMARY KEY,
-    username VARCHAR(50) UNIQUE NOT NULL,
-    email VARCHAR(100) UNIQUE NOT NULL,
-    password VARCHAR(255) NOT NULL,
-    first_name VARCHAR(50),
-    last_name VARCHAR(50),
-    enabled BOOLEAN DEFAULT TRUE,
-    created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-    updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
-);
+    roles {
+        BIGSERIAL id PK
+        VARCHAR(50) name UK
+    }
 
--- Роли
-CREATE TABLE roles (
-    id BIGSERIAL PRIMARY KEY,
-    name VARCHAR(50) UNIQUE NOT NULL
-);
+    user_roles {
+        BIGINT user_id PK,FK
+        BIGINT role_id PK,FK
+    }
 
--- Связь пользователей и ролей
-CREATE TABLE user_roles (
-    user_id BIGINT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
-    role_id BIGINT NOT NULL REFERENCES roles(id) ON DELETE CASCADE,
-    PRIMARY KEY (user_id, role_id)
-);
-🐳 Docker Compose
-yaml
-services:
-  ollama:
-    image: ollama/ollama:latest
-    container_name: rzd-ollama
-    ports:
-      - "11434:11434"
-    volumes:
-      - ollama_data:/root/.ollama
-    command: ollama serve
+    messages {
+        BIGSERIAL id PK
+        VARCHAR(36) user_id FK
+        TEXT message
+        TEXT reply
+        VARCHAR(36) session_id
+        TIMESTAMP created_at
+        TIMESTAMP updated_at
+        BOOLEAN is_deleted
+        VARCHAR(50) model_used
+        INTEGER tokens_used
+    }
 
-  postgres:
-    image: postgres:16
-    container_name: rzd-postgres
-    ports:
-      - "5432:5432"
-    environment:
-      POSTGRES_DB: rzd_assistant
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
-      - ./init-db.sql:/docker-entrypoint-initdb.d/init-db.sql
-⚙️ Конфигурация
-application.yml
-yaml
-server:
-  port: 8080
-
-spring:
-  datasource:
-    url: jdbc:postgresql://localhost:5432/rzd_assistant
-    username: postgres
-    password: postgres
-    
-  jpa:
-    hibernate:
-      ddl-auto: update
-    show-sql: true
-
-ollama:
-  url: http://localhost:11434
-  model: llama3.2:3b
-  system-prompt: >
-    Ты вежливый ИИ-ассистент РЖД...
-🔐 Spring Security
-Проект использует Spring Security 7.0.0 для аутентификации и авторизации:
-
-BCrypt — хеширование паролей
-
-JWT — stateless аутентификация
-
-Роли — ROLE_USER и ROLE_ADMIN
-
-Вход по email или username — гибкая система аутентификации
-
-Настройка безопасности
-java
-@Configuration
-@EnableWebSecurity
-public class SecurityConfig {
-    // Конфигурация фильтров и правил доступа
-}
-🧪 Тестирование
-Регистрация пользователя
-bash
-curl -X POST http://localhost:8080/api/auth/register \
-  -H "Content-Type: application/json" \
-  -d '{"username": "testuser", "email": "test@mail.ru", "password": "123456"}'
-Вход в систему
-bash
-curl -X POST http://localhost:8080/api/auth/login \
-  -H "Content-Type: application/json" \
-  -d '{"username": "testuser", "password": "123456"}'
-Отправка сообщения
-bash
-curl -X POST http://localhost:8080/api/chat \
-  -H "Content-Type: application/json" \
-  -d '{"message": "Привет, как дела?"}'
-Получение истории
-bash
-curl http://localhost:8080/api/history/anonymous
-🎯 Планы по развитию
-Краткосрочные (Q3 2026)
-Базовая аутентификация
-
-Сохранение истории чата
-
-Интеграция с Ollama
-
-Голосовой ввод
-
-Docker Compose
-
-Среднесрочные (Q4 2026)
-JWT токены — полноценная stateless авторизация
-
-Админ-панель — просмотр статистики и управления пользователями
-
-Пагинация — для истории сообщений
-
-WebSocket — стриминг ответов в реальном времени
-
-Долгосрочные (2027+)
-RAG (Retrieval-Augmented Generation) — добавление знаний о РЖД
-
-Интеграция с системами РЖД — реальное расписание и билеты
-
-Мобильное приложение — на Flutter или React Native
-
-Мультиагентная система — несколько специализированных AI-агентов
-
-Сертификация — для промышленного использования
-
-
-
+    users ||--o{ user_roles : "has"
+    roles ||--o{ user_roles : "assigned to"
+    users ||--o{ messages : "writes"
+```
 📄 Лицензия
 Проект разработан в рамках учебно-исследовательской работы.
 Для промышленного использования в РЖД требуется дополнительная сертификация.
