@@ -18,26 +18,30 @@ public class Message {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "user_id", nullable = false, length = 36)
+    // СВЕЖЕЕ: Размечаем как родной UUID для ускорения индексов в Postgres
+    @Column(name = "user_id", nullable = false, columnDefinition = "UUID")
     private String userId;
 
-    @Column(name = "message", columnDefinition = "TEXT", nullable = false)
+    // СВЕЖЕЕ: Заменили зарезервированное имя 'message' на безопасное 'user_message'
+    @Column(name = "user_message", columnDefinition = "TEXT", nullable = false)
     private String message;
 
     @Column(name = "reply", columnDefinition = "TEXT")
     private String reply;
 
-    @Column(name = "session_id", length = 36)
+    // СВЕЖЕЕ: Размечаем как родной UUID
+    @Column(name = "session_id", columnDefinition = "UUID")
     private String sessionId;
 
-    @Column(name = "created_at", nullable = false)
+    @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDateTime createdAt;
 
-    @Column(name = "updated_at")
+    @Column(name = "updated_at", nullable = false)
     private LocalDateTime updatedAt;
 
-    @Column(name = "is_deleted")
-    private Boolean isDeleted = false;
+    // СВЕЖЕЕ: Примитив boolean защищает от null-pointer и лишних проверок
+    @Column(name = "is_deleted", nullable = false)
+    private boolean isDeleted = false;
 
     @Column(name = "model_used", length = 50)
     private String modelUsed;
@@ -47,13 +51,12 @@ public class Message {
 
     @PrePersist
     protected void onCreate() {
-        createdAt = LocalDateTime.now();
-        updatedAt = LocalDateTime.now();
-        if (isDeleted == null) isDeleted = false;
+        this.createdAt = LocalDateTime.now();
+        this.updatedAt = LocalDateTime.now();
     }
 
     @PreUpdate
     protected void onUpdate() {
-        updatedAt = LocalDateTime.now();
+        this.updatedAt = LocalDateTime.now();
     }
 }

@@ -7,8 +7,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @Slf4j
 @SpringBootApplication
 public class ApplicationRunner {
-    public static void main(String[] args) {
+     static void main(String[] args) {
         SpringApplication.run(ApplicationRunner.class,args);
-        System.out.println("Сайт:http://localhost:8080/");
+        System.out.print("Сайт:http://localhost:8080/");
     }
 }

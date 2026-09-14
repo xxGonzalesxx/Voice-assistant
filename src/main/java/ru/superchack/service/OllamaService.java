@@ -5,6 +5,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
+import reactor.core.publisher.Mono;
+import reactor.core.scheduler.Schedulers;
 import ru.superchack.dto.Ollamadto.OllamaRequest;
 import ru.superchack.dto.Ollamadto.OllamaResponse;
 
@@ -27,12 +29,11 @@ public class OllamaService {
     }
 
     public String chat(String userMessage, String userId) {
-        String fullPrompt = systemPrompt + "\n\nВопрос пользователя: " + userMessage;
-
         log.debug("Отправка к Ollama, модель: {}", model);
 
         try {
-            OllamaRequest request = new OllamaRequest(model, fullPrompt, false);
+            // СВЕЖЕЕ: Разделяем prompt пользователя и systemPrompt согласно спецификации Ollama API
+            OllamaRequest request = new OllamaRequest(model, userMessage, systemPrompt, false);
 
             OllamaResponse response = ollamaWebClient
                     .post()
@@ -40,24 +41,25 @@ public class OllamaService {
                     .bodyValue(request)
                     .retrieve()
                     .bodyToMono(OllamaResponse.class)
-                    .block();
+                    .block(); // Оставляем block, но вызов в контроллере нужно будет изолировать
 
             if (response == null || response.getResponse() == null) {
                 String error = "Извините, не удалось получить ответ.";
-                chatHistoryService.saveMessage(userId, userMessage, error);
+                chatHistoryService.saveMessage(userId, userMessage, error, model);
                 return error;
             }
 
             String reply = response.getResponse();
-            chatHistoryService.saveMessage(userId, userMessage, reply);
+            // СВЕЖЕЕ: Сохраняем в историю актуальную модель qwen2.5:3b
+            chatHistoryService.saveMessage(userId, userMessage, reply, model);
 
-            log.debug("Ответ получен и сохранён");
+            log.debug("Ответ получен и успешно сохранён");
             return reply;
 
         } catch (Exception e) {
-            log.error("Ошибка: {}", e.getMessage());
+            log.error("Ошибка при работе с Ollama: {}", e.getMessage());
             String error = "Ollama не отвечает. Проверьте, запущен ли сервис.";
-            chatHistoryService.saveMessage(userId, userMessage, error);
+            chatHistoryService.saveMessage(userId, userMessage, error, model);
             return error;
         }
     }

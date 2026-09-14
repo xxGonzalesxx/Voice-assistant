@@ -1,18 +1,15 @@
-version: '3.8'
-
 services:
   ollama:
-    image: ollama/ollama:latest
+    image: ollama/ollama
     container_name: rzd-ollama
     ports:
       - "11434:11434"
     volumes:
       - ollama_data:/root/.ollama
     restart: unless-stopped
-    command: ollama serve
 
   postgres:
-    image: postgres:16
+    image: postgres:18
     container_name: rzd-postgres
     ports:
       - "5432:5432"

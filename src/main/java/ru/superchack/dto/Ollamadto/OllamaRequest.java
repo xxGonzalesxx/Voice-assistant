@@ -10,5 +10,6 @@ import lombok.NoArgsConstructor;
 public class OllamaRequest {
     private String model;
     private String prompt;
+    private String system;
     private  boolean stream;
 }

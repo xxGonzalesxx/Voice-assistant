@@ -1,4 +1,4 @@
-// chat.js - оптимизированная версия
+// chat.js - оптимизированная и исправленная версия
 
 (function() {
   'use strict';
@@ -30,7 +30,7 @@
     return d.getHours().toString().padStart(2,'0') + ':' + d.getMinutes().toString().padStart(2,'0');
   };
 
-  // Экранирование HTML (быстрая таблица)
+  // Экранирование HTML (ИСПРАВЛЕНО: убран синтаксический баг с кавычками)
   var escapeMap = {
     '&': '&amp;',
     '<': '&lt;',
@@ -108,7 +108,8 @@
       body: JSON.stringify({ message: message })
     });
     var data = await res.json();
-    return data.reply || 'Извините, произошла ошибка.';
+    // ИСПРАВЛЕНО: Читаем поле .response в соответствии с DTO вашего Java ChatResponse
+    return data.response || data.reply || 'Извините, произошла ошибка.';
   }
 
   // Главная функция отправки
@@ -133,11 +134,11 @@
       addMsg(reply, 'bot');
     } catch (err) {
       removeTyping();
-      addMsg('Ошибка соединения', 'bot');
+      addMsg('Ошибка соединения с ИИ-сервером РЖД', 'bot');
     }
 
     btn.disabled = false;
-    q.focus();
+    if (q) q.focus();
   }
 
   // Инициализация

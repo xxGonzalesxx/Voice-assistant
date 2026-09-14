@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import reactor.core.publisher.Mono;
+import reactor.core.scheduler.Schedulers;
 import ru.superchack.security.dto.AuthRequest;
 import ru.superchack.security.dto.AuthResponse;
 import ru.superchack.security.service.AuthService;
@@ -20,14 +22,22 @@ public class AuthController {
     private final AuthService authService;
 
     @PostMapping("/register")
-    public ResponseEntity<AuthResponse> register(@RequestBody AuthRequest request) {
+    public Mono<ResponseEntity<AuthResponse>> register(@RequestBody AuthRequest request) {
         log.debug("POST /api/auth/register - {}", request.getUsername());
-        return ResponseEntity.ok(authService.register(request));
+
+        // Mono.fromCallable изолирует блокирующие операции JPA внутри AuthService
+        return Mono.fromCallable(() -> authService.register(request))
+                .subscribeOn(Schedulers.boundedElastic())
+                .map(ResponseEntity::ok);
     }
 
     @PostMapping("/login")
-    public ResponseEntity<AuthResponse> login(@RequestBody AuthRequest request) {
+    public Mono<ResponseEntity<AuthResponse>> login(@RequestBody AuthRequest request) {
         log.debug("POST /api/auth/login - {}", request.getUsername());
-        return ResponseEntity.ok(authService.login(request));
+
+        // Безопасный перенос блокирующего вызова авторизации на эластичный пул потоков
+        return Mono.fromCallable(() -> authService.login(request))
+                .subscribeOn(Schedulers.boundedElastic())
+                .map(ResponseEntity::ok);
     }
 }

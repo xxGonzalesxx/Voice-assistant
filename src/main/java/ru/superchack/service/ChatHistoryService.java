@@ -16,20 +16,20 @@ public class ChatHistoryService {
 
     private final MessageRepository messageRepository;
 
-    public void saveMessage(String userId, String message, String reply) {
+    public void saveMessage(String userId, String message, String reply, String modelUsed) {
         try {
             Message entity = new Message();
             entity.setUserId(userId);
             entity.setMessage(message);
             entity.setReply(reply);
             entity.setSessionId(UUID.randomUUID().toString());
-            entity.setModelUsed("llama3.2:3b");
+            entity.setModelUsed(modelUsed);
             entity.setTokensUsed(0);
 
             messageRepository.save(entity);
-            log.debug("Сообщение сохранено");
+            log.debug("Сообщение сохранено в БД");
         } catch (Exception e) {
-            log.error("Ошибка сохранения: {}", e.getMessage());
+            log.error("Ошибка сохранения в БД: {}", e.getMessage());
         }
     }
 

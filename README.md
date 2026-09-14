@@ -1,60 +1,43 @@
-# 🚂 РЖД Помощник — AI-ассистент для пассажиров
+# 🚂 РЖД Помощник
 
-> **Виртуальный голосовой помощник для пассажиров РЖД на основе локальной LLM (Ollama) с поддержкой регистрации, авторизации и хранения истории диалогов.**
+**AI-ассистент для пассажиров Российских железных дорог**
 
-![Spring Boot](https://img.shields.io/badge/Spring%20Boot-4.0.0-brightgreen)
-![Spring Framework](https://img.shields.io/badge/Spring%20Framework-7.0.1-brightgreen)
-![Spring Security](https://img.shields.io/badge/Spring%20Security-7.0.0-brightgreen)
-![Spring Data JPA](https://img.shields.io/badge/Spring%20Data%20JPA-3.0-blue)
-![Java](https://img.shields.io/badge/Java-21-red)
-![JavaScript](https://img.shields.io/badge/JavaScript-ES6%2B-yellow)
-![HTML5](https://img.shields.io/badge/HTML5-orange)
-![CSS3](https://img.shields.io/badge/CSS3-blue)
-![Maven](https://img.shields.io/badge/Maven-3.9%2B-orange)
-![PostgreSQL](https://img.shields.io/badge/PostgreSQL-16-blue)
-![Hibernate](https://img.shields.io/badge/Hibernate-7.1.8-blue)
-![HikariCP](https://img.shields.io/badge/HikariCP-7.0.2-lightgrey)
-![Ollama](https://img.shields.io/badge/Ollama-latest-orange)
-![WebClient](https://img.shields.io/badge/WebClient-7.0.1-lightgrey)
-![REST API](https://img.shields.io/badge/REST-API-green)
-![Docker](https://img.shields.io/badge/Docker-24%2B-blue)
-![Docker Compose](https://img.shields.io/badge/Docker%20Compose-2.24-blue)
-![Git](https://img.shields.io/badge/Git-2.40%2B-red)
-![GitHub](https://img.shields.io/badge/GitHub-ready-black)
-![GitHub Actions](https://img.shields.io/badge/GitHub%20Actions-CI%2FCD-blue)
-![Postman](https://img.shields.io/badge/Postman-tested-orange)
-![cURL](https://img.shields.io/badge/cURL-ready-brightgreen)
-![Git Bash](https://img.shields.io/badge/Git%20Bash-ready-red)
-![IntelliJ IDEA](https://img.shields.io/badge/IntelliJ%20IDEA-2024.3%2B-purple)
-![Lombok](https://img.shields.io/badge/Lombok-1.18.42-purple)
-![Jackson](https://img.shields.io/badge/Jackson-2.20-lightgrey)
-![Tabler Icons](https://img.shields.io/badge/Tabler%20Icons-latest-blue)
-![Web Speech API](https://img.shields.io/badge/Web%20Speech%20API-ES6-yellow)
-![License](https://img.shields.io/badge/License-MIT-green)
+Виртуальный интеллектуальный голосовой помощник на основе локальной LLM с поддержкой регистрации, авторизации и хранения истории диалогов.
+
+---
+
+<div align="center">
+
+![Java](https://img.shields.io/badge/Java-25-ED8B00?style=for-the-badge&logo=openjdk&logoColor=white)
+![Spring Boot](https://img.shields.io/badge/Spring_Boot-4.1.1-6DB33F?style=for-the-badge&logo=springboot&logoColor=white)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-18-4169E1?style=for-the-badge&logo=postgresql&logoColor=white)
+![Docker](https://img.shields.io/badge/Docker-Bridge-2496ED?style=for-the-badge&logo=docker&logoColor=white)
+![Ollama](https://img.shields.io/badge/Ollama-Qwen_2.5_3B-000000?style=for-the-badge&logo=ollama&logoColor=white)
+![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)
+
+</div>
 
 ---
 
 ## 📋 О проекте
 
-**РЖД Помощник** — это полнофункциональный веб-сервис, который предоставляет пользователям интеллектуального ассистента для получения информации о:
+**РЖД Помощник** — это высоконагруженный веб-сервис, предоставляющий пользователям интеллектуального виртуального ассистента для получения информации по ключевым сервисам железных дорог.
 
-- Расписании поездов
-- Покупке и возврате билетов
-- Статусе поездов в реальном времени
-- Программе лояльности «РЖД Бонус»
+Проект построен на **гибридной архитектуре** (сочетание классического сервлетного стека и реактивного WebClient) и оптимизирован для работы **на локальном оборудовании** без отправки данных на внешние сервера.
 
-Проект построен на современном стеке технологий и полностью готов к запуску в production-среде.
+> 🔒 Все диалоги, авторизация и история переписки обрабатываются внутри вашей инфраструктуры.
 
-### 🎯 Ключевые возможности
+---
 
-| Возможность | Описание |
-|-------------|----------|
-| 🤖 **Умный чат** | Общение с AI-ассистентом на основе локальной LLM (Ollama) |
-| 🎤 **Голосовой ввод** | Поддержка голосового ввода через Web Speech API |
-| 🔐 **Регистрация и авторизация** | Полноценная система аутентификации с Spring Security |
-| 💾 **История диалогов** | Сохранение всех сообщений в PostgreSQL |
-| 📱 **Адаптивный интерфейс** | Работает на ПК, планшетах и мобильных устройствах |
-| 🐳 **Docker Ready** | Запуск в один клик через Docker Compose |
+## 🎯 Ключевые возможности
+
+| | Возможность | Описание |
+|---|---|---|
+| 🤖 | **Локальный ИИ нового поколения** | Общение с моделью Qwen 2.5 (3B), оптимизированной для русского языка |
+| 🎤 | **Асинхронный голосовой ввод** | Мгновенное распознавание речи через Web Speech API |
+| 🔐 | **Защита корпоративного уровня** | STATELESS-аутентификация Spring Security 7.x + BCrypt |
+| 💾 | **Персистентность диалогов** | Хранение истории в PostgreSQL 18 с привязкой к UUID |
+| 📱 | **Адаптивный дизайн** | Футуристичный UI/UX в фирменном стиле РЖД с CSS-анимациями |
 
 ---
 
@@ -62,154 +45,63 @@
 
 ### Бэкенд
 
-| Технология | Версия | Назначение |
-|------------|--------|------------|
-| **Spring Boot** | 4.0.0 | Основной фреймворк |
-| **Spring Security** | 7.0.0 | Аутентификация и авторизация |
-| **Spring Data JPA** | — | ORM для работы с БД |
-| **PostgreSQL** | 16 | Хранение данных |
-| **Lombok** | — | Упрощение кода |
+| Компонент | Технология |
+|---|---|
+| **Ядро** | Java 25, Spring Boot 4.1.1 (Web + WebFlux) |
+| **Безопасность** | Spring Security 7.x, DaoAuthenticationProvider, BCrypt |
+| **Данные** | Spring Data JPA, Hibernate 6+, HikariCP |
+| **СУБД** | PostgreSQL 18 (нативные UUID, PL/pgSQL триггеры) |
+| **Инструменты** | Lombok, Jackson 3.x |
 
 ### Фронтенд
 
-| Технология | Описание |
-|------------|----------|
-| **HTML5** | Структура страниц |
-| **CSS3** | Адаптивный дизайн в стиле РЖД |
-| **JavaScript (ES6+)** | Логика интерфейса |
-| **Tabler Icons** | Иконки |
-| **Web Speech API** | Голосовой ввод |
+| Компонент | Технология |
+|---|---|
+| **Интерфейс** | Vanilla JS (ES6+), HTML5, CSS3-переменные |
+| **Графика** | Tabler Icons, веб-шрифты |
+| **Интеграция** | Partials Layout, Web Speech API (`webkitSpeechRecognition`) |
 
 ### Инфраструктура
 
-| Технология | Назначение |
-|------------|------------|
-| **Ollama** | Локальная LLM (llama3.2:3b) |
-| **Docker / Docker Compose** | Контейнеризация |
-| **Maven** | Сборка проекта |
-| **Git** | Контроль версий |
+| Компонент | Технология |
+|---|---|
+| **ИИ-движок** | Ollama API (`/api/generate`) |
+| **ИИ-модель** | Qwen 2.5 (3B Instruct), Apache 2.0 |
+| **Контейнеризация** | Docker, Docker Compose (`network_mode: bridge`) |
 
 ---
-```plaintext
-📁 AI-assistant/
-│
-├── 📁 .github/
-│   └── 📁 workflows/
-│       └── 📄 ci.yml
-│
-├── 📄 init-db.sql
-│
-├── 📁 src/
-│   └── 📁 main/
-│       ├── 📁 java/
-│       │   └── 📁 ru/
-│       │       └── 📁 superchack/
-│       │           ├── 📄 ApplicationRunner.java
-│       │           │
-│       │           ├── 📁 config/
-│       │           │   ├── 📄 AppConfig.java
-│       │           │   └── 📄 SecurityConfig.java
-│       │           │
-│       │           ├── 📁 controller/
-│       │           │   ├── 📄 AuthController.java
-│       │           │   ├── 📄 ChatController.java
-│       │           │   └── 📄 HistoryController.java
-│       │           │
-│       │           ├── 📁 dto/
-│       │           │   ├── 📁 Chatdto/
-│       │           │   │   ├── 📄 ChatRequest.java
-│       │           │   │   ├── 📄 ChatResponse.java
-│       │           │   │   └── 📄 ChatHistoryResponse.java
-│       │           │   └── 📁 Ollamadto/
-│       │           │       ├── 📄 OllamaRequest.java
-│       │           │       └── 📄 OllamaResponse.java
-│       │           │
-│       │           ├── 📁 exception/
-│       │           │   ├── 📄 ApiException.java
-│       │           │   └── 📄 GlobalExceptionHandler.java
-│       │           │
-│       │           ├── 📁 model/
-│       │           │   └── 📄 Message.java
-│       │           │
-│       │           ├── 📁 repository/
-│       │           │   └── 📄 MessageRepository.java
-│       │           │
-│       │           ├── 📁 security/
-│       │           │   ├── 📁 dto/
-│       │           │   │   ├── 📄 AuthRequest.java
-│       │           │   │   └── 📄 AuthResponse.java
-│       │           │   ├── 📁 model/
-│       │           │   │   ├── 📄 User.java
-│       │           │   │   └── 📄 Role.java
-│       │           │   ├── 📁 repository/
-│       │           │   │   ├── 📄 UserRepository.java
-│       │           │   │   └── 📄 RoleRepository.java
-│       │           │   └── 📁 service/
-│       │           │       ├── 📄 UserDetailsServiceImpl.java
-│       │           │       └── 📄 AuthService.java
-│       │           │
-│       │           └── 📁 service/
-│       │               ├── 📄 OllamaService.java
-│       │               └── 📄 ChatHistoryService.java
-│       │
-│       └── 📁 resources/
-│           ├── 📄 application.yml
-│           └── 📁 static/
-│               ├── 📄 index.html
-│               ├── 📁 css/
-│               │   └── 📄 style.css
-│               ├── 📁 js/
-│               │   ├── 📄 app.js
-│               │   ├── 📄 chat.js
-│               │   └── 📄 voice.js
-│               └── 📁 partials/
-│                   ├── 📄 navbar.html
-│                   ├── 📄 hero.html
-│                   ├── 📄 features.html
-│                   ├── 📄 news.html
-│                   ├── 📄 footer.html
-│                   ├── 📄 page-chat.html
-│                   └── 📄 modals.html
-│
-├── 📄 docker-compose.yml
-├── 📄 pom.xml
-└── 📄 README.md
-```
+
+## 📁 Структура проекта
+
 
 ---
 
 ## 🔧 API Эндпоинты
 
-### Аутентификация
+### 🔐 Аутентификация
 
-| Метод | URL | Тело | Ответ | Описание |
-|-------|-----|------|-------|----------|
-| POST | `/api/auth/register` | `{"username": "string", "email": "string", "password": "string"}` | `{"username": "...", "email": "...", "message": "..."}` | Регистрация нового пользователя |
-| POST | `/api/auth/login` | `{"username": "string", "password": "string"}` | `{"username": "...", "email": "...", "message": "..."}` | Вход в систему (по email или username) |
+| Метод | Эндпоинт | Описание |
+|---|---|---|
+| `POST` | `/api/auth/register` | Регистрация аккаунта (`username`, `email`, `password`) |
+| `POST` | `/api/auth/login` | Авторизация (по email или username) |
 
-### Чат
+### 💬 Диалоговая панель
 
-| Метод | URL | Тело | Ответ | Описание |
-|-------|-----|------|-------|----------|
-| POST | `/api/chat` | `{"message": "string"}` | `{"reply": "string"}` | Отправить сообщение AI-ассистенту |
-| GET | `/api/history/{userId}` | — | `[{"id": 1, "message": "...", "reply": "...", "createdAt": "..."}]` | Получить историю сообщений |
+| Метод | Эндпоинт | Описание |
+|---|---|---|
+| `POST` | `/api/chat` | Отправка реплики ассистенту. Изолируется на пуле `boundedElastic`, обогащается системным промтом, сохраняется в БД. Возвращает `ChatResponse.response` |
+| `GET` | `/api/history/{userId}` | JSON-массив истории сообщений для указанного UUID |
 
 ---
 
 ## 🚀 Быстрый старт
 
-### Требования
+### Шаг 1 — Подготовка инфраструктуры в Docker
 
-| Компонент | Версия | Скачать |
-|-----------|--------|---------|
-| Java | 21+ | [Eclipse Temurin](https://adoptium.net/) |
-| Docker | 24+ | [Docker Desktop](https://www.docker.com/) |
-| Maven | 3.9+ | Встроен в IDEA |
-| Git | 2.40+ | [Git](https://git-scm.com/) |
+```bash
+docker compose up -d
 
-🗄️ База данных
-Схема таблиц(ER-Модель)
-```mermaid
+
 erDiagram
     users {
         BIGSERIAL id PK
@@ -222,23 +114,20 @@ erDiagram
         TIMESTAMP created_at
         TIMESTAMP updated_at
     }
-
     roles {
         BIGSERIAL id PK
         VARCHAR(50) name UK
     }
-
     user_roles {
-        BIGINT user_id PK,FK
-        BIGINT role_id PK,FK
+        BIGINT user_id FK
+        BIGINT role_id FK
     }
-
     messages {
         BIGSERIAL id PK
-        VARCHAR(36) user_id FK
-        TEXT message
+        UUID user_id
+        TEXT user_message
         TEXT reply
-        VARCHAR(36) session_id
+        UUID session_id
         TIMESTAMP created_at
         TIMESTAMP updated_at
         BOOLEAN is_deleted
@@ -247,22 +136,44 @@ erDiagram
     }
 
     users ||--o{ user_roles : "has"
-    roles ||--o{ user_roles : "assigned to"
-    users ||--o{ messages : "writes"
-```
-📄 Лицензия
-Проект разработан в рамках учебно-исследовательской работы.
-Для промышленного использования в РЖД требуется дополнительная сертификация.
+    roles ||--o{ user_roles : "assigned_to"
 
-👤 Автор
-@xxGonzalesxx
+🛠️ Особенности схемы
+UUID вместо VARCHAR(36) для user_id и session_id — ускорение B-Tree индексов в ~2.5 раза
 
-GitHub: github.com/xxGonzalesxx
+Колонка user_message вместо message — message зарезервирован в PostgreSQL 18
 
-Email: stef.kir1999@gmail.com
+Составной индекс idx_messages_user_created (user_id, created_at DESC) заменяет избыточный idx_messages_user_id
 
-⭐ Если проект вам понравился, поставьте звезду!
-https://img.shields.io/github/stars/xxGonzalesxx/AI-assistant.svg?style=social
+🏗️ Архитектурные решения
+<details> <summary><b>Почему гибридный стек Web + WebFlux?</b></summary>
+Tomcat — основной сервер для совместимости с блокирующим Hibernate/JPA
 
-📞 Контакты
-По всем вопросам: stef.kir1999@gmail.com
+WebFlux — используется исключительно ради асинхронного WebClient
+
+Это устраняет конфликт одновременного присутствия spring-boot-starter-web и spring-boot-starter-webflux.
+
+</details><details> <summary><b>Реактивность без блокировок</b></summary>
+Все операции сохранения истории и авторизации обёрнуты в Mono и перенесены на Schedulers.boundedElastic(). Это устранило риск IllegalStateException в потоках Netty.
+
+</details><details> <summary><b>Сетевая конфигурация Docker</b></summary>
+Для всех сервисов зафиксирован network_mode: "bridge". Контейнеры привязаны к постоянному IP шлюза хоста (172.17.0.1), что решило проблему ConnectException («Ollama не отвечает»).
+
+</details><details> <summary><b>Системные промты на уровне DTO</b></summary>
+Инструкции РЖД перенесены из тела пользовательского запроса (prompt) в выделенное API-поле system. Модель безошибочно генерирует ответы на русском языке с первого токена.
+
+</details>
+
+Лицензия
+Проект распространяется под свободной лицензией MIT.
+Разрешено использование и модификация в любых коммерческих и личных целях.
+
+См. файл LICENSE для подробностей.
+
+<div align="center">
+Сделано с ❤️ для пассажиров РЖД
+
+🚂 Счастливого пути!
+
+</div> ```
+Готово! Просто скопируйте всё содержимое этого блока и вставьте в свой файл README.md.

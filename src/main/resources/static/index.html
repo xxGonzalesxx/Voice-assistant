@@ -3,29 +3,39 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>РЖД Помощник</title>
+  <title>РЖД Помощник — Виртуальный ассистент</title>
+  <!-- Иконки Tabler Icons -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
-  <link rel="stylesheet" href="css/style.css">
+  <!-- ИСПРАВЛЕНО: Абсолютный путь от корня /css/ гарантирует загрузку стилей на любых эндпоинтах -->
+  <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
 
+<!-- Главная страница сайта -->
 <div id="page-home">
   <div id="slot-navbar"></div>
-  <div id="slot-hero"></div>
-  <div id="slot-features"></div>
-  <div id="slot-news"></div>
+
+  <main>
+    <div id="slot-hero"></div>
+    <div id="slot-features"></div>
+    <div id="slot-news"></div>
+  </main>
+
   <div id="slot-footer"></div>
 </div>
 
+<!-- Страница голосового ИИ-ассистента РЖД -->
 <div id="page-chat" hidden>
   <div id="slot-chat"></div>
 </div>
 
+<!-- Контейнер для динамических модальных окон (Вход, Регистрация, Оферта) -->
 <div id="slot-modals"></div>
 
-<script src="js/chat.js"></script>
-<script src="js/voice.js"></script>
-<script src="js/app.js"></script>
+<!-- ИСПРАВЛЕНО: Абсолютные пути к скриптам предотвращают ошибки 404 при маршрутизации -->
+<script src="/js/chat.js"></script>
+<script src="/js/voice.js"></script>
+<script src="/js/app.js"></script>
 
 </body>
 </html>
