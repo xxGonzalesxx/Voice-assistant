@@ -12,4 +12,5 @@ public class OllamaRequest {
     private String prompt;
     private String system;
     private  boolean stream;
+    private Boolean think;
 }

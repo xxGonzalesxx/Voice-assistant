@@ -1,9 +1,10 @@
+
 services:
   ollama:
-    image: ollama/ollama
+    image: ollama/ollama:0.40.15
     container_name: rzd-ollama
     ports:
-      - "11434:11434"
+      - "127.0.0.1:11434:11434"
     volumes:
       - ollama_data:/root/.ollama
     restart: unless-stopped
@@ -11,17 +12,16 @@ services:
   postgres:
     image: postgres:18
     container_name: rzd-postgres
-    ports:
-      - "5432:5432"
+    restart: unless-stopped
     environment:
       POSTGRES_DB: rzd_assistant
       POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-      PGDATA: /var/lib/postgresql/data/pgdata
+      POSTGRES_HOST_AUTH_METHOD: trust
+    ports:
+      - "127.0.0.1:5433:5432"
     volumes:
-      - postgres_data:/var/lib/postgresql/data
-      - ./init-db.sql:/docker-entrypoint-initdb.d/init-db.sql
-    restart: unless-stopped
+      - postgres_data:/var/lib/postgresql
+      - ./init-db.sql:/docker-entrypoint-initdb.d/init-db.sql:ro
 
 volumes:
   ollama_data:

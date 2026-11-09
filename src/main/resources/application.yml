@@ -1,3 +1,4 @@
+
 server:
   port: 8080
 
@@ -9,9 +10,9 @@ logging:
 
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/rzd_assistant
+    url: jdbc:postgresql://localhost:5433/rzd_assistant
     username: postgres
-    password: postgres
+    password: ${POSTGRES_PASSWORD}
     driver-class-name: org.postgresql.Driver
 
   jpa:
@@ -28,8 +29,8 @@ spring:
     default-property-inclusion: non_null
 
 ollama:
-  url: http://172.17.0.1:11434
-  model: qwen2.5:3b
+  url: http://localhost:11434
+  model: qwen3.5:4b
   system-prompt: >
     Ты вежливый ИИ-ассистент РЖД (Российские железные дороги).
     Отвечай кратко и по делу на русском языке.

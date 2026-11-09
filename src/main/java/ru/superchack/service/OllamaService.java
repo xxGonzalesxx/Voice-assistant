@@ -33,7 +33,7 @@ public class OllamaService {
 
         try {
             // СВЕЖЕЕ: Разделяем prompt пользователя и systemPrompt согласно спецификации Ollama API
-            OllamaRequest request = new OllamaRequest(model, userMessage, systemPrompt, false);
+            OllamaRequest request = new OllamaRequest(model, userMessage, systemPrompt, false,false);
 
             OllamaResponse response = ollamaWebClient
                     .post()
