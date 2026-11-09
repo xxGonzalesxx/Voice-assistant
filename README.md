@@ -9,10 +9,10 @@
 <div align="center">
 
 ![Java](https://img.shields.io/badge/Java-25-ED8B00?style=for-the-badge&logo=openjdk&logoColor=white)
-![Spring Boot](https://img.shields.io/badge/Spring_Boot-4.1.1-6DB33F?style=for-the-badge&logo=springboot&logoColor=white)
+![Spring Boot](https://img.shields.io/badge/Spring_Boot-4.1.2-6DB33F?style=for-the-badge&logo=springboot&logoColor=white)
 ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-18-4169E1?style=for-the-badge&logo=postgresql&logoColor=white)
 ![Docker](https://img.shields.io/badge/Docker-Bridge-2496ED?style=for-the-badge&logo=docker&logoColor=white)
-![Ollama](https://img.shields.io/badge/Ollama-Qwen_2.5_4B-000000?style=for-the-badge&logo=ollama&logoColor=white)
+![Ollama](https://img.shields.io/badge/Ollama-Qwen_3.5_4B-000000?style=for-the-badge&logo=ollama&logoColor=white)
 ![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)
 
 </div>
