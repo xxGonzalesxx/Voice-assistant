@@ -2,13 +2,13 @@ package ru.superchack.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
-import reactor.core.publisher.Mono;
-import reactor.core.scheduler.Schedulers;
 import ru.superchack.dto.Ollamadto.OllamaRequest;
 import ru.superchack.dto.Ollamadto.OllamaResponse;
+import tools.jackson.databind.ObjectMapper;
 
 @Slf4j
 @Service
@@ -24,6 +24,9 @@ public class OllamaService {
     @Value("${ollama.system-prompt}")
     private String systemPrompt;
 
+    @Autowired
+    private ObjectMapper objectMapper;
+
     public String chat(String userMessage) {
         return chat(userMessage, "anonymous");
     }
@@ -32,8 +35,13 @@ public class OllamaService {
         log.debug("Отправка к Ollama, модель: {}", model);
 
         try {
-            // СВЕЖЕЕ: Разделяем prompt пользователя и systemPrompt согласно спецификации Ollama API
-            OllamaRequest request = new OllamaRequest(model, userMessage, systemPrompt, false,false);
+            OllamaRequest request = new OllamaRequest(model, userMessage, systemPrompt, false, false);
+
+            try {
+                log.debug("Ollama JSON body: {}", objectMapper.writeValueAsString(request));
+            } catch (Exception e) {
+                log.warn("Не удалось сериализовать request для лога", e);
+            }
 
             OllamaResponse response = ollamaWebClient
                     .post()
